@@ -102,6 +102,16 @@ body::after {
   margin-top: 8px;
   max-width: none;
 }
+a.sheet-link {
+  color: #00aeef;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a.sheet-link:hover { color: #7ddfff; }
+a.sheet-link:focus-visible {
+  outline: 2px solid rgba(0, 174, 239, 0.6);
+  outline-offset: 3px;
+}
 .logo-wrap {
   flex-shrink: 0;
   margin-left: 8px;
@@ -225,6 +235,7 @@ body::after {
   max-width: min(520px, 100%);
 }
 .footer-note span { color: #00aeef; }
+.footer-note a.sheet-link { color: #00aeef; }
 
 @media (max-width: 800px) {
   .page { padding: 32px 18px 40px; }
@@ -257,7 +268,7 @@ body::after {
     <div class="header-left">
       <div class="eyebrow">1-800-Radiator · Feature planning · Driven Brands</div>
       <div class="headline">From today’s experience to the platform we need:<br><em>Value area by value area</em></div>
-      <div class="subhead">Executive summary of current state and target state across seven value areas (sheet: Value Areas). Source: Google Sheets tab linked to feature planning.</div>
+      <div class="subhead">Executive summary of current state and target state across seven value areas from the planning workbook.</div>
     </div>
     <div class="logo-wrap">
       <img src="../assets/elevate-brand-refresh-vert-light-transparent.png" width="200" height="200" alt="Elevate Digital">
@@ -395,7 +406,8 @@ body::after {
       <img src="../assets/elevate-brand-refresh-vert-light-transparent.png" width="160" height="160" alt="Elevate Digital">
     </div>
     <div class="footer-note">
-      Content reflects the planning sheet export; validate against the live Google Sheet for edits.<br>
+      <a class="sheet-link" href="https://docs.google.com/spreadsheets/d/19eZ2wcBNra2quFN4crZDs_4rcPuOdn-J1Jj9rWvE2Pc/edit?gid=360925940#gid=360925940" target="_blank" rel="noopener noreferrer">Open Value Areas sheet (Google Sheets)</a><br>
+      Content reflects the planning sheet export; validate for edits.<br>
       <span>Elevate Digital · 1-800-Radiator · Driven Brands · 2026</span>
     </div>
   </div>
