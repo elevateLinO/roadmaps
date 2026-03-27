@@ -1,0 +1,183 @@
+# Elevate Digital — Brand & Design System Rules
+# Drop this file in the root of any Cursor project to enforce Elevate Digital brand standards.
+
+## Identity
+
+Elevate Digital's visual identity is built around the **Aurora** — dynamic, atmospheric, kinetic.
+Every design decision should feel: technical, atmospheric, future-ready, alive.
+The dominant aesthetic is dark-first: deep navy backgrounds, white text, electric accent colors.
+
+---
+
+## Color Palette
+
+Use these exact values. Do not substitute approximations.
+
+### Primary
+- Elevate Navy:     #192036   rgb(25, 32, 54)    — primary background, 70%+ of visual weight
+- Elevate White:    #ffffff   rgb(255,255,255)    — all body text on dark backgrounds
+
+### Secondary
+- Binary Blue:      #0f75bd   rgb(15, 117, 189)   — chevron motifs, gradient fills, structural shapes
+- Electric Blue:    #00aeef   rgb(0, 174, 239)    — accent text, badges, links, numbered elements, footer tag
+
+### Tertiary (Accent / Data Viz)
+- Gamma Green:      #00fe7c   rgb(0, 254, 124)    — signal mark, step labels, key CTAs — use sparingly (1–2 per view max)
+- Violet Vortex:    #723aca   rgb(114, 58, 202)   — innovation callouts, data viz series
+- Orbital Orange:   #ff9600   rgb(255, 150, 0)    — momentum/energy callouts, data viz series
+- Solar Yellow:     #ffea37   rgb(255, 234, 55)   — highlight emphasis, data viz series
+
+### Color Rules
+- Navy dominates — never use light/white backgrounds
+- White for ALL body text — never navy or blue text on dark backgrounds
+- Electric Blue for interactive/navigational elements
+- Gamma Green is the signal color — max 1–2 uses per screen/slide
+- Red, pink, brown are outside the brand palette — do not use
+- Generic blue (#0000ff) is forbidden — use Binary Blue or Electric Blue only
+
+---
+
+## Typography
+
+### Typefaces
+- Headlines / Titles:   Sansation Bold (fallback: Georgia Bold, serif)
+- Body / Labels:        Titillium Web Regular/Bold/Light (fallback: system-ui, sans-serif)
+- Monospace (code):     ui-monospace, monospace
+
+### Size Scale
+- Cover / Hero title:   44–54pt / 2.75–3.375rem   Sansation Bold   White
+- Page / Slide title:   32–40pt / 2–2.5rem         Sansation Bold   White
+- Section header:       24–28pt / 1.5–1.75rem      Sansation Bold   White or Gamma Green
+- Body copy:            14–16pt / 0.875–1rem        Titillium        White
+- Badge / Pill label:   11–13pt / 0.69–0.81rem      Titillium Bold   White ALL CAPS
+- Footer / Caption:     8–10pt  / 0.5–0.625rem      Titillium Light  Electric Blue
+- Stat callout number:  60–72pt / 3.75–4.5rem       Sansation Bold   White or Electric Blue
+
+### Typography Rules
+- Titles: left-aligned on content views, centered on cover/hero views
+- Body text: always left-aligned — never center paragraphs or bullet lists
+- Letter-spacing on "ELEVATE" wordmark footer: ~0.3em wide tracking
+- Never use Inter, Roboto, Arial, or system-default sans-serif for UI text
+
+---
+
+## CSS Variables (use these in all HTML/CSS output)
+
+```css
+:root {
+  /* Brand colors */
+  --elevate-navy:        #192036;
+  --elevate-white:       #ffffff;
+  --binary-blue:         #0f75bd;
+  --electric-blue:       #00aeef;
+  --gamma-green:         #00fe7c;
+  --violet-vortex:       #723aca;
+  --orbital-orange:      #ff9600;
+  --solar-yellow:        #ffea37;
+
+  /* Semantic aliases */
+  --bg-primary:          #192036;
+  --bg-secondary:        #111827;  /* slightly darker for nested surfaces */
+  --bg-card:             #1e2a45;  /* card/panel surface on navy bg */
+  --text-primary:        #ffffff;
+  --text-muted:          rgba(255,255,255,0.6);
+  --text-accent:         #00aeef;
+  --border-subtle:       rgba(255,255,255,0.1);
+  --border-accent:       #00aeef;
+
+  /* Typography */
+  --font-display:        'Sansation', Georgia, serif;
+  --font-body:           'Titillium Web', system-ui, sans-serif;
+  --font-mono:           ui-monospace, monospace;
+}
+```
+
+---
+
+## Component Patterns
+
+### Backgrounds
+- Primary page background: `#192036` (Elevate Navy)
+- Never use white, off-white, or light grey as a primary background
+- Atmospheric texture effects (aurora glow, wave lines) are on-brand for hero sections
+- Aurora gradients: use blue-green spectrum — Electric Blue to Gamma Green
+
+### Cards / Panels
+- Background: `#1e2a45` or `rgba(255,255,255,0.04)` on navy
+- Border: `1px solid rgba(255,255,255,0.1)` or `1px solid #00aeef` for emphasis
+- Border-radius: 8–12px for standard cards, 999px for pill badges
+- Box-shadow: `0 4px 20px rgba(0,0,0,0.3)`
+
+### Buttons
+- Primary: Electric Blue `#00aeef` fill, white text, Titillium Bold, ALL CAPS, border-radius 6px
+- Secondary: transparent fill, `1px solid #00aeef`, Electric Blue text
+- CTA / signal: Gamma Green `#00fe7c` fill, navy `#192036` text (high contrast)
+- Never use red or generic blue buttons
+
+### Badges / Pills
+- Background: Electric Blue `#00aeef` or Gamma Green `#00fe7c`
+- Text: white (on Electric Blue) or navy `#192036` (on Gamma Green)
+- Font: Titillium Bold, ALL CAPS, 11–13px
+- Border-radius: 999px
+
+### Data Visualization
+Chart/graph series colors in order:
+1. Electric Blue   `#00aeef`
+2. Gamma Green     `#00fe7c`
+3. Orbital Orange  `#ff9600`
+4. Violet Vortex   `#723aca`
+5. Solar Yellow    `#ffea37`
+6. Binary Blue     `#0f75bd`
+
+### Tables
+- Header background: `#0f75bd` (Binary Blue) or `#192036` with `#00aeef` text
+- Row background: alternating `#192036` / `#1e2a45`
+- Border: `1px solid rgba(255,255,255,0.08)`
+- Text: white; muted text at 60% opacity for secondary info
+
+### Icons
+- Stroke color: Electric Blue `#00aeef` or white
+- Fill: Gamma Green `#00fe7c` for signal/CTA icons only
+- Size: consistent 16px, 20px, or 24px — never mix sizes in the same row
+
+---
+
+## Layout Principles
+
+- Default to dark navy backgrounds at all times
+- Use generous whitespace — never cram content
+- Asymmetry and grid-breaking layouts are on-brand
+- Accent lines / dividers: thin (1px), Gamma Green or Electric Blue
+- Numbered steps use Electric Blue filled circles with white Titillium Bold text
+- Section dividers use a thin Gamma Green horizontal rule
+
+---
+
+## The Signal Mark (decorative brand element)
+
+Two thin crossed lines in Gamma Green (`#00fe7c`), 2–3px stroke, ~15–20° angle.
+Used on hero sections, cover screens, and closing sections.
+Never overuse — one per major section maximum.
+
+---
+
+## Elevate Brand Voice (for copy / labels)
+
+- Confident and technical — not corporate or generic
+- Active voice, present tense
+- Short declarative statements over long explanations
+- ALL CAPS for pill badges, step labels, and the "ELEVATE" wordmark only
+- Avoid: "leverage", "synergy", "robust", "best-in-class"
+
+---
+
+## What NOT to do
+
+- No white or light backgrounds
+- No Inter, Roboto, Arial, or system-default sans fonts for UI text
+- No generic blue (#0000ff)
+- No red, pink, or brown
+- No centered body text
+- No more than 2 Gamma Green elements per screen
+- No rounded-rect card borders thicker than 2px
+- No drop shadows on text (box-shadows on containers only)

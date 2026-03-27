@@ -1,0 +1,66 @@
+Feature ID,Depends On,Phase,Feature Idea,KPIs,Feature Group,Feature Group ID,Conversion & Acquisition,Customer Experience,Operational Efficiency,Financial Visibility,Technical Foundation,Marketing Enablement,Search & Discovery Authority
+FG-01,,,Pre-Login Marketing & Authority,Organic traffic growth; New account registrations from pre-login; Time on site (pre-login); AI/LLM citation of 1800R content,,,,,,,,,
+FG-01.01,,1.5,Tech tips library,Organic entrances to content pages; Avg time on page,Pre-Login Marketing & Authority,FG-01,x,,,,,,x
+FG-01.02,,1.5,Tech corner / editorial hub,Organic entrances to content pages; Return visits to hub,Pre-Login Marketing & Authority,FG-01,x,,,,,,x
+FG-01.03,,1.5,News and SEO content program,Organic search impressions; Keyword ranking growth,Pre-Login Marketing & Authority,FG-01,x,,,,,,x
+FG-01.04,,1.5,AI search authority content strategy,AI/LLM citation rate; Featured snippet capture rate,Pre-Login Marketing & Authority,FG-01,x,,,,,,x
+FG-01.05,,1.5,Failure pattern insights,Page views; Engagement rate; Account creation from content pages,Pre-Login Marketing & Authority,FG-01,x,,,,,,x
+FG-01.06,,1.5,Installation guides,Page views; QR code scans (if linked from packaging),Pre-Login Marketing & Authority,FG-01,x,x,,,,,x
+FG-01.07,,1.5,Vendor and brand video content,Video play rate; Avg watch duration,Pre-Login Marketing & Authority,FG-01,x,x,,,,,x
+FG-01.08,,1.5,Delivery ETA preview,Engagement with ETA module pre-login; Account creation from ETA touchpoint,Pre-Login Marketing & Authority,FG-01,x,x,,,,,
+FG-01.09,,1.5,Pre-login catalog browsing,Browse sessions; Conversion from browse to account creation,Pre-Login Marketing & Authority,FG-01,x,x,,,,,x
+FG-01.10,,1.5,Downtime cost calculator,Calculator completion rate; Account creation from calculator,Pre-Login Marketing & Authority,FG-01,x,,,,,,
+FG-01.11,FG-09.03,1.5,Domain consolidation and redirect strategy v1,Reduction in crawl errors; Organic traffic consolidation; 404 rate,Pre-Login Marketing & Authority,FG-01,x,,,,x,,x
+FG-01.12,FG-09.03,3.5,Domain consolidation and redirect strategy v2,Reduction in crawl errors; Organic traffic consolidation; 404 rate,Pre-Login Marketing & Authority,FG-01,x,,,,x,,x
+FG-02,FG-09.03,,Part Search & Discovery,Lookup completion rate; Part lookup to order conversion rate; Wrong part return rate,,,,,,,,,
+FG-02.01,FG-09.02,2.5,Nationwide inventory visibility,"Reduction in ""call for availability"" instances; Lookup abandonment rate",Part Search & Discovery,FG-02,,x,,,,,
+FG-02.02,,2,VIN-based part lookup,VIN lookup adoption rate; Lookup-to-order conversion vs. YMM lookup,Part Search & Discovery,FG-02,,x,,,,,
+FG-02.03,,2,OEM cross-reference search,Cross-ref lookup volume; Attach rate of cross-ref to order,Part Search & Discovery,FG-02,,x,,,,,
+FG-02.04,,2,Fuzzy search and autocomplete,Search completion rate; Reduction in zero-result searches,Part Search & Discovery,FG-02,,x,,,,,
+FG-02.05,FG-02.04,2.5,Smart disambiguation prompts,Disambiguation interaction rate; Reduction in wrong-part returns,Part Search & Discovery,FG-02,,x,x,,,,
+FG-02.06,FG-02.04,2.5,License plate lookup,License plate lookup adoption rate,Part Search & Discovery,FG-02,,x,,,,,
+FG-02.07,,2.5,Part compatibility badge,Reduction in wrong-part returns; Badge interaction rate,Part Search & Discovery,FG-02,,x,x,,,,
+FG-02.08,FG-02.02,2.5,CARB compliance explanation,"Reduction in ""call for availability"" in CARB states; Support call volume in CA",Part Search & Discovery,FG-02,,x,,,,,
+FG-03,FG-09.03,,"Cart, Ordering & Upsell",Average order value (AOV); Attach rate of secondary categories; Cart abandonment rate,,,,,,,,,
+FG-03.01,,3.5,User-level ordering within a shop account,Orders attributed to individual users (vs. shop account); Multi-user adoption rate,"Cart, Ordering & Upsell",FG-03,,x,x,,,,
+FG-03.02,,3.5,Multi-user and multi-location account management,Multi-user account adoption; Orders per account increase,"Cart, Ordering & Upsell",FG-03,,x,x,,,,
+FG-03.03,FG-08.03,2.5,AI-powered part recommendation assistant,Recommendation acceptance rate; AOV lift from recommendations,"Cart, Ordering & Upsell",FG-03,,x,x,,,,x
+FG-03.04,"FG-08.03, FG-09.04",3.5,Cross-sell and upsell at point of lookup,Attach rate of cross-sell items; AOV lift,"Cart, Ordering & Upsell",FG-03,x,x,,,,,
+FG-03.05,,2.5,Kit builder,Kit builder adoption rate; AOV lift from kit orders; Return rate on kit orders,"Cart, Ordering & Upsell",FG-03,x,x,,,,,
+FG-04,FG-09.03,,Shop Dashboard & Account Management,Logged-in session frequency; Account retention rate; Rep contact utilization,,,,,,,,,
+FG-04.01,,2,Guided new account onboarding,Onboarding completion rate; Time to first order post-registration,Shop Dashboard & Account Management,FG-04,x,x,,,,,
+FG-04.02,,2,Rep contact surfacing,Rep contact click rate; Inbound call volume reduction,Shop Dashboard & Account Management,FG-04,,x,x,,,,
+FG-04.03,FG-08.03,3,Persistent session / remembered device login,Login frequency per user; Session drop-off at login screen,Shop Dashboard & Account Management,FG-04,,x,,,,,
+FG-04.04,"FG-08.03, FG-09.04",3,Loyalty and tenure recognition,Repeat purchase rate; Customer tenure; Churn rate among recognized accounts,Shop Dashboard & Account Management,FG-04,x,x,,,,,
+FG-04.05,,2,Personalized post-login experience,Post-login engagement rate; Click-through on personalized content; AOV,Shop Dashboard & Account Management,FG-04,x,x,,,x,,
+FG-05,FG-09.03,,Delivery & Fulfillment Visibility,"Customer-reported delivery satisfaction; Inbound ""where is my order"" call volume; On-time delivery rate",,,,,,,,,
+FG-05.01,FG-05.04,2.5,Real-time delivery tracking page,Tracking page visits per order; Reduction in inbound delivery status calls,Delivery & Fulfillment Visibility,FG-05,,x,,,,,
+FG-05.02,FG-05.04,2.5,Delivery fleet geo-fencing for customers,Geo-fence notification open rate; Reduction in missed deliveries,Delivery & Fulfillment Visibility,FG-05,,x,,,,,
+FG-05.03,,3.5,Tracking number surfacing for all delivery types,% of orders with tracking number captured and displayed,Delivery & Fulfillment Visibility,FG-05,,x,x,,,,
+FG-05.04,,3,Proprietary delivery management system,On-time delivery rate; Driver utilization; Exception rate,Delivery & Fulfillment Visibility,FG-05,,x,x,,x,,
+FG-05.05,FG-05.04,3.5,Automated delivery delay notifications,Notification open rate; Reduction in inbound delay inquiry calls,Delivery & Fulfillment Visibility,FG-05,,x,x,,,,
+FG-05.06,FG-05.04,2.5,Order-by / receive-by visibility that updates in real time,Accuracy of ETA shown vs. actual delivery; Reduction in ETA-related support contacts,Delivery & Fulfillment Visibility,FG-05,,x,x,,,,
+FG-06,FG-09.03,,Billing & Payments,Self-service payment rate; AR staff time on manual allocation; COD customer conversion to terms,,,,,,,,,
+FG-06.01,FG-09.01,2,Statement visibility,Statement page views per billing cycle; Reduction in statement-related inbound calls,Billing & Payments,FG-06,,x,,x,,,
+FG-06.02,FG-09.01,2,Self-service payment allocation to invoices,% of payments allocated self-serve vs. manually; AR staff time savings,Billing & Payments,FG-06,,x,x,x,,,
+FG-06.03,FG-09.01,3,Downloadable invoices,Invoice download rate; Reduction in invoice request calls,Billing & Payments,FG-06,,x,x,x,,,
+FG-06.04,FG-09.01,3,Digital payment workflow for COD customers,COD-to-terms conversion rate; Digital payment adoption among COD accounts,Billing & Payments,FG-06,,x,x,x,,,
+FG-06.05,FG-09.01,2,Credit line visibility and management,Credit page engagement rate; Reduction in credit inquiry calls,Billing & Payments,FG-06,,x,,x,,,
+FG-06.06,FG-09.01,3.5,Spend and margin reporting tools,Report generation rate; Adoption among franchise owners,Billing & Payments,FG-06,,,x,x,,,
+FG-07,FG-09.03,,Marketing & Promotions Engine,FSR enrollment rate; Digital promotion redemption rate; Franchise marketing self-serve adoption,,,,,,,,,
+FG-07.01,,2.5,Targeted digital promotions engine,Promotion open rate; Redemption rate; AOV lift from promotions; Category cross-sell rate,Marketing & Promotions Engine,FG-07,x,x,,,,x,
+FG-07.02,"FG-08.03, FG-09.04",2,FSR scan-to-enroll tool,QR scan-to-enrollment conversion rate; New accounts enrolled per FSR visit,Marketing & Promotions Engine,FG-07,x,,x,,,x,
+FG-07.03,,2,QR codes on FSR marketing materials,QR scan volume; Account creation from FSR QR touchpoint,Marketing & Promotions Engine,FG-07,x,,,,,x,
+FG-07.04,,3,Digital asset management platform,Asset utilization rate by franchisees; Time to publish new marketing materials,Marketing & Promotions Engine,FG-07,,,x,,,x,
+FG-07.05,,3.5,QR codes on product packaging,QR scan volume from packaging; Content engagement from packaging scans,Marketing & Promotions Engine,FG-07,x,,,,,x,
+FG-07.06,"FG-07.04, FG-09.04",2.5,Franchise self-serve marketing portal,Franchise portal adoption rate; Reduction in corporate marketing requests from franchisees,Marketing & Promotions Engine,FG-07,,,x,,,x,
+FG-08,FG-09.03,,Internal Tools & Intelligence,Rep account coverage; Churn early warning accuracy; Session data completeness,,,,,,,,,
+FG-08.01,,3.5,Knowledge base and concierge capture system,Knowledge base article count; Search hit rate vs. escalation to human; Concierge call deflection rate,Internal Tools & Intelligence,FG-08,,,x,,x,,x
+FG-08.02,,2,Account health dashboard for internal teams,Rep usage rate of dashboard; Accounts flagged for churn risk; Intervention success rate,Internal Tools & Intelligence,FG-08,,,x,x,,,
+FG-08.03,,3,Session and user-level analytics implementation,% of sessions with user-level attribution; Funnel visibility completeness; Data quality score,Internal Tools & Intelligence,FG-08,,,x,,x,,
+FG-08.04,FG-09.02,3,Rep continuity record,Rep handoff incidents; Account retention rate during rep transitions,Internal Tools & Intelligence,FG-08,,x,x,,,,
+FG-09,,,Platform & Infrastructure,System uptime; API response time; Frontend deployment frequency,,,,,,,,,
+FG-09.01,FG-09.03,2,GeneXus to modern accounting platform migration,Migration completion; AR processing time reduction; Error rate in payment allocation,Platform & Infrastructure,FG-09,,,x,x,x,,
+FG-09.02,,1,Adapt DEWE/DUWA for stored procedure API,Page load time; API response time; Frontend deployment frequency; Developer velocity,Platform & Infrastructure,FG-09,,,,,x,,
+FG-09.03,,1,Migration to DEWE,Frontend deployment frequency; Module reuse rate from shared library; Time to market for new features vs. pre-migration baseline; Core Web Vitals scores,Platform & Infrastructure,FG-09,,,,,,,
+FG-09.04,FG-09.03,1,DUWA integration for 1800R,Data freshness latency; Marketing team adoption of ephemeral edit tools; Active DUWA endpoints consumed by frontend and third-party tools; Zeta CDP data match rate,Platform & Infrastructure,FG-09,,,,,,,

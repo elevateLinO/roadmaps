@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1-800-Radiator — Feature roadmap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@700&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --elevate-navy: #192036;
+      --elevate-white: #ffffff;
+      --binary-blue: #0f75bd;
+      --electric-blue: #00aeef;
+      --gamma-green: #00fe7c;
+      --violet-vortex: #723aca;
+      --orbital-orange: #ff9600;
+      --solar-yellow: #ffea37;
+      --bg: #192036;
+      --panel: #1e2a45;
+      --panel2: rgba(255, 255, 255, 0.06);
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.6);
+      --line: rgba(255, 255, 255, 0.1);
+      --accent: #00aeef;
+      --p1: #00aeef;
+      --p2: #723aca;
+      --p3: #00fe7c;
+      --card: rgba(17, 24, 39, 0.55);
+      --font-display: "Sansation", Georgia, serif;
+      --font: "Titillium Web", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.45;
+      position: relative;
+      isolation: isolate;
+    }
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 340px;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 110% 85% at 50% -35%, rgba(0, 174, 239, 0.38), transparent 58%),
+        radial-gradient(ellipse 75% 55% at 92% 8%, rgba(0, 254, 124, 0.14), transparent 52%),
+        radial-gradient(ellipse 65% 50% at 8% 18%, rgba(120, 185, 255, 0.11), transparent 48%),
+        linear-gradient(180deg, rgba(8, 22, 48, 0.55) 0%, rgba(25, 32, 54, 0) 100%);
+    }
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 320px;
+      z-index: 0;
+      pointer-events: none;
+      background: url("black-lines-1.png") center top / cover no-repeat;
+      opacity: 0.16;
+      mix-blend-mode: screen;
+      mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+    }
+    .page {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      min-height: 100vh;
+    }
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+    header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1.25rem;
+    }
+    .brand-logo {
+      flex-shrink: 0;
+      height: clamp(48px, 9vw, 68px);
+      width: auto;
+      object-fit: contain;
+    }
+    .header-text {
+      min-width: 0;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 3vw, 1.85rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 0.35rem;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 52ch;
+      margin: 0;
+    }
+    .timeline-top {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+      position: relative;
+    }
+    .timeline-top::after {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--p1), var(--p2), var(--p3));
+      border-radius: 2px;
+      z-index: 0;
+      opacity: 0.95;
+      box-shadow: 0 0 12px rgba(0, 174, 239, 0.25);
+    }
+    .phase-pill {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0.65rem 0.5rem;
+    }
+    .phase-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin: 0 auto 0.5rem;
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px currentColor;
+    }
+    .phase-pill.p1 { color: var(--p1); }
+    .phase-pill.p2 { color: var(--p2); }
+    .phase-pill.p3 { color: var(--p3); }
+    .phase-pill strong {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .phase-pill span.hint {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .swimlane {
+      display: grid;
+      grid-template-columns: minmax(200px, 240px) 1fr;
+      gap: 1rem;
+      align-items: stretch;
+      margin-bottom: 1.25rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .lane-label {
+      padding: 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.35rem;
+      border-right: 1px solid var(--line);
+    }
+    .lane-id {
+      font-family: ui-monospace, monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .lane-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      min-height: 100%;
+    }
+    .phase-col {
+      padding: 0.65rem;
+      border-left: 1px solid var(--line);
+      background: rgba(0,0,0,0.12);
+    }
+    .phase-col:first-child { border-left: none; }
+    .phase-col.c1 { box-shadow: inset 0 0 0 1px rgba(0, 174, 239, 0.12); }
+    .phase-col.c2 { box-shadow: inset 0 0 0 1px rgba(114, 58, 202, 0.12); }
+    .phase-col.c3 { box-shadow: inset 0 0 0 1px rgba(0, 254, 124, 0.1); }
+    .feat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0.5rem 0.6rem;
+      margin-bottom: 0.45rem;
+      font-size: 0.78rem;
+    }
+    .feat:last-child { margin-bottom: 0; }
+    .feat-id {
+      font-family: ui-monospace, monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+    .feat-title {
+      color: var(--text);
+      font-weight: 500;
+    }
+    .feat-deps {
+      margin-top: 0.35rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+      border-top: 1px dashed var(--line);
+      padding-top: 0.3rem;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-top: 0.35rem;
+    }
+    .tag {
+      font-size: 0.58rem;
+      padding: 0.12rem 0.35rem;
+      border-radius: 3px;
+      background: var(--panel2);
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .tag.CA { background: rgba(255, 150, 0, 0.22); color: #ffd199; }
+    .tag.CX { background: rgba(0, 174, 239, 0.2); color: #7fe0fb; }
+    .tag.Ops { background: rgba(114, 58, 202, 0.22); color: #c9b5f5; }
+    .tag.Fin { background: rgba(15, 117, 189, 0.25); color: #93c9eb; }
+    .tag.Tech { background: rgba(255, 234, 55, 0.18); color: #fff3a3; }
+    .tag.Mkt { background: rgba(255, 150, 0, 0.18); color: #ffd699; }
+    .tag.Search { background: rgba(0, 254, 124, 0.14); color: #9cffc4; }
+    .legend {
+      margin-top: 2.5rem;
+      padding: 1.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .legend h2 {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--electric-blue);
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+    }
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .legend-grid div { display: flex; align-items: baseline; gap: 0.5rem; }
+    .legend-grid abbr {
+      font-weight: 700;
+      color: var(--text);
+      min-width: 3.2rem;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.625rem;
+      font-weight: 300;
+      color: var(--electric-blue);
+      letter-spacing: 0.02em;
+    }
+    .brand-wordmark {
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    @media print {
+      body::before,
+      body::after {
+        content: none;
+      }
+      body {
+        background: var(--elevate-navy);
+        color: var(--text);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .wrap { max-width: none; padding: 1rem; }
+      .swimlane { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+  <div class="wrap">
+    <header>
+      <img
+        class="brand-logo"
+        src="elevate-brand-refresh-vert-light-transparent.png"
+        width="120"
+        height="180"
+        alt="Elevate Digital"
+      />
+      <div class="header-text">
+        <h1 id="doc-title"></h1>
+        <p class="subtitle" id="doc-sub"></p>
+      </div>
+    </header>
+    <div class="timeline-top" id="timeline" aria-hidden="true"></div>
+    <div id="lanes"></div>
+    <section class="legend">
+      <h2>Value areas</h2>
+      <div class="legend-grid" id="legend"></div>
+    </section>
+    <footer>
+      <div class="brand-wordmark">Elevate Digital</div>
+      Source: Feature Planning CSV · Timeline layout inspired by roadmap phasing view.
+    </footer>
+  </div>
+  </div>
+  <script id="roadmap-data" type="application/json">{"title": "1-800-Radiator — Feature roadmap", "subtitle": "2026 — Features mapped to value areas & phasing (planning dataset)", "phases": [{"n": 1, "label": "Phase 1", "hint": "Foundation & authority"}, {"n": 2, "label": "Phase 2", "hint": "Core commerce & CX"}, {"n": 3, "label": "Phase 3", "hint": "Scale & depth"}], "valueLegend": [{"full": "Conversion & Acquisition", "abbr": "CA"}, {"full": "Customer Experience", "abbr": "CX"}, {"full": "Operational Efficiency", "abbr": "Ops"}, {"full": "Financial Visibility", "abbr": "Fin"}, {"full": "Technical Foundation", "abbr": "Tech"}, {"full": "Marketing Enablement", "abbr": "Mkt"}, {"full": "Search & Discovery Authority", "abbr": "Search"}], "groups": ["FG-01", "FG-02", "FG-03", "FG-04", "FG-05", "FG-06", "FG-07", "FG-08", "FG-09"], "groupLabels": {"FG-01": "Pre-Login Marketing & Authority", "FG-02": "Part Search & Discovery", "FG-03": "Cart, Ordering & Upsell", "FG-04": "Shop Dashboard & Account Management", "FG-05": "Delivery & Fulfillment Visibility", "FG-06": "Billing & Payments", "FG-07": "Marketing & Promotions Engine", "FG-08": "Internal Tools & Intelligence", "FG-09": "Platform & Infrastructure"}, "byGroup": {"FG-01": [{"id": "FG-01.01", "title": "Tech tips library", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition", "Search & Discovery Authority"], "areasShort": ["CA", "Search"]}, {"id": "FG-01.02", "title": "Tech corner / editorial hub", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition", "Search & Discovery Authority"], "areasShort": ["CA", "Search"]}, {"id": "FG-01.03", "title": "News and SEO content program", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition", "Search & Discovery Authority"], "areasShort": ["CA", "Search"]}, {"id": "FG-01.04", "title": "AI search authority content strategy", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition", "Search & Discovery Authority"], "areasShort": ["CA", "Search"]}, {"id": "FG-01.05", "title": "Failure pattern insights", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition", "Search & Discovery Authority"], "areasShort": ["CA", "Search"]}, {"id": "FG-01.06", "title": "Installation guides", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition", "Customer Experience", "Search & Discovery Authority"], "areasShort": ["CA", "CX", "Search"]}, {"id": "FG-01.07", "title": "Vendor and brand video content", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "FG-05.06", "phase": 1, "areas": ["Conversion & Acquisition", "Customer Experience", "Search & Discovery Authority"], "areasShort": ["CA", "CX", "Search"]}, {"id": "FG-01.08", "title": "Delivery ETA preview", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition", "Customer Experience"], "areasShort": ["CA", "CX"]}, {"id": "FG-01.09", "title": "Pre-login catalog browsing", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition", "Customer Experience", "Search & Discovery Authority"], "areasShort": ["CA", "CX", "Search"]}, {"id": "FG-01.10", "title": "Downtime cost calculator", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "", "phase": 1, "areas": ["Conversion & Acquisition"], "areasShort": ["CA"]}, {"id": "FG-01.11", "title": "Domain consolidation and redirect strategy v1", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "FG-09.02", "phase": 1, "areas": ["Conversion & Acquisition", "Technical Foundation", "Search & Discovery Authority"], "areasShort": ["CA", "Tech", "Search"]}, {"id": "FG-01.12", "title": "Domain consolidation and redirect strategy v2", "group": "Pre-Login Marketing & Authority", "gid": "FG-01", "depends": "FG-01.11", "phase": 3, "areas": ["Conversion & Acquisition", "Technical Foundation", "Search & Discovery Authority"], "areasShort": ["CA", "Tech", "Search"]}], "FG-02": [{"id": "FG-02.01", "title": "Nationwide inventory visibility", "group": "Part Search & Discovery", "gid": "FG-02", "depends": "", "phase": 2, "areas": ["Customer Experience"], "areasShort": ["CX"]}, {"id": "FG-02.02", "title": "VIN-based part lookup", "group": "Part Search & Discovery", "gid": "FG-02", "depends": "", "phase": 2, "areas": ["Customer Experience"], "areasShort": ["CX"]}, {"id": "FG-02.03", "title": "OEM cross-reference search", "group": "Part Search & Discovery", "gid": "FG-02", "depends": "", "phase": 2, "areas": ["Customer Experience"], "areasShort": ["CX"]}, {"id": "FG-02.04", "title": "Fuzzy search and autocomplete", "group": "Part Search & Discovery", "gid": "FG-02", "depends": "", "phase": 2, "areas": ["Customer Experience"], "areasShort": ["CX"]}, {"id": "FG-02.05", "title": "Smart disambiguation prompts", "group": "Part Search & Discovery", "gid": "FG-02", "depends": "", "phase": 2, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}, {"id": "FG-02.06", "title": "License plate lookup", "group": "Part Search & Discovery", "gid": "FG-02", "depends": "FG-02.02", "phase": 2, "areas": ["Customer Experience"], "areasShort": ["CX"]}, {"id": "FG-02.07", "title": "Part compatibility badge", "group": "Part Search & Discovery", "gid": "FG-02", "depends": "", "phase": 2, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}, {"id": "FG-02.08", "title": "CARB compliance explanation", "group": "Part Search & Discovery", "gid": "FG-02", "depends": "FG-04.03", "phase": 2, "areas": ["Customer Experience"], "areasShort": ["CX"]}], "FG-03": [{"id": "FG-03.01", "title": "User-level ordering within a shop account", "group": "Cart, Ordering & Upsell", "gid": "FG-03", "depends": "FG-03.01", "phase": 3, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}, {"id": "FG-03.02", "title": "Multi-user and multi-location account management", "group": "Cart, Ordering & Upsell", "gid": "FG-03", "depends": "FG-02.04, FG-02.05", "phase": 3, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}, {"id": "FG-03.03", "title": "AI-powered part recommendation assistant", "group": "Cart, Ordering & Upsell", "gid": "FG-03", "depends": "FG-02.04", "phase": 2, "areas": ["Customer Experience", "Operational Efficiency", "Search & Discovery Authority"], "areasShort": ["CX", "Ops", "Search"]}, {"id": "FG-03.04", "title": "Cross-sell and upsell at point of lookup", "group": "Cart, Ordering & Upsell", "gid": "FG-03", "depends": "FG-02.02, FG-02.03", "phase": 3, "areas": ["Conversion & Acquisition", "Customer Experience"], "areasShort": ["CA", "CX"]}, {"id": "FG-03.05", "title": "Kit builder", "group": "Cart, Ordering & Upsell", "gid": "FG-03", "depends": "", "phase": 2, "areas": ["Conversion & Acquisition", "Customer Experience"], "areasShort": ["CA", "CX"]}], "FG-04": [{"id": "FG-04.01", "title": "Guided new account onboarding", "group": "Shop Dashboard & Account Management", "gid": "FG-04", "depends": "", "phase": 2, "areas": ["Conversion & Acquisition", "Customer Experience"], "areasShort": ["CA", "CX"]}, {"id": "FG-04.02", "title": "Rep contact surfacing", "group": "Shop Dashboard & Account Management", "gid": "FG-04", "depends": "", "phase": 2, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}, {"id": "FG-04.03", "title": "Persistent session / remembered device login", "group": "Shop Dashboard & Account Management", "gid": "FG-04", "depends": "FG-08.03", "phase": 3, "areas": ["Customer Experience"], "areasShort": ["CX"]}, {"id": "FG-04.04", "title": "Loyalty and tenure recognition", "group": "Shop Dashboard & Account Management", "gid": "FG-04", "depends": "FG-08.03", "phase": 3, "areas": ["Conversion & Acquisition", "Customer Experience"], "areasShort": ["CA", "CX"]}, {"id": "FG-04.05", "title": "Personalized post-login experience", "group": "Shop Dashboard & Account Management", "gid": "FG-04", "depends": "FG-05.04", "phase": 2, "areas": ["Conversion & Acquisition", "Customer Experience", "Technical Foundation"], "areasShort": ["CA", "CX", "Tech"]}], "FG-05": [{"id": "FG-05.01", "title": "Real-time delivery tracking page", "group": "Delivery & Fulfillment Visibility", "gid": "FG-05", "depends": "FG-05.04", "phase": 2, "areas": ["Customer Experience"], "areasShort": ["CX"]}, {"id": "FG-05.02", "title": "Delivery fleet geo-fencing for customers", "group": "Delivery & Fulfillment Visibility", "gid": "FG-05", "depends": "", "phase": 2, "areas": ["Customer Experience"], "areasShort": ["CX"]}, {"id": "FG-05.03", "title": "Tracking number surfacing for all delivery types", "group": "Delivery & Fulfillment Visibility", "gid": "FG-05", "depends": "", "phase": 3, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}, {"id": "FG-05.04", "title": "Proprietary delivery management system", "group": "Delivery & Fulfillment Visibility", "gid": "FG-05", "depends": "FG-05.04", "phase": 3, "areas": ["Customer Experience", "Operational Efficiency", "Technical Foundation"], "areasShort": ["CX", "Ops", "Tech"]}, {"id": "FG-05.05", "title": "Automated delivery delay notifications", "group": "Delivery & Fulfillment Visibility", "gid": "FG-05", "depends": "FG-05.04", "phase": 3, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}, {"id": "FG-05.06", "title": "Order-by / receive-by visibility that updates in real time", "group": "Delivery & Fulfillment Visibility", "gid": "FG-05", "depends": "FG-09.01", "phase": 2, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}], "FG-06": [{"id": "FG-06.01", "title": "Statement visibility", "group": "Billing & Payments", "gid": "FG-06", "depends": "FG-09.01", "phase": 2, "areas": ["Customer Experience", "Financial Visibility"], "areasShort": ["CX", "Fin"]}, {"id": "FG-06.02", "title": "Self-service payment allocation to invoices", "group": "Billing & Payments", "gid": "FG-06", "depends": "FG-09.01", "phase": 2, "areas": ["Customer Experience", "Operational Efficiency", "Financial Visibility"], "areasShort": ["CX", "Ops", "Fin"]}, {"id": "FG-06.03", "title": "Downloadable invoices", "group": "Billing & Payments", "gid": "FG-06", "depends": "FG-09.01", "phase": 3, "areas": ["Customer Experience", "Operational Efficiency", "Financial Visibility"], "areasShort": ["CX", "Ops", "Fin"]}, {"id": "FG-06.04", "title": "Digital payment workflow for COD customers", "group": "Billing & Payments", "gid": "FG-06", "depends": "FG-09.01", "phase": 3, "areas": ["Customer Experience", "Operational Efficiency", "Financial Visibility"], "areasShort": ["CX", "Ops", "Fin"]}, {"id": "FG-06.05", "title": "Credit line visibility and management", "group": "Billing & Payments", "gid": "FG-06", "depends": "FG-08.03", "phase": 2, "areas": ["Customer Experience", "Financial Visibility"], "areasShort": ["CX", "Fin"]}, {"id": "FG-06.06", "title": "Spend and margin reporting tools", "group": "Billing & Payments", "gid": "FG-06", "depends": "FG-08.03", "phase": 3, "areas": ["Operational Efficiency", "Financial Visibility"], "areasShort": ["Ops", "Fin"]}], "FG-07": [{"id": "FG-07.01", "title": "Targeted digital promotions engine", "group": "Marketing & Promotions Engine", "gid": "FG-07", "depends": "", "phase": 2, "areas": ["Conversion & Acquisition", "Customer Experience", "Marketing Enablement"], "areasShort": ["CA", "CX", "Mkt"]}, {"id": "FG-07.02", "title": "FSR scan-to-enroll tool", "group": "Marketing & Promotions Engine", "gid": "FG-07", "depends": "", "phase": 2, "areas": ["Conversion & Acquisition", "Operational Efficiency", "Marketing Enablement"], "areasShort": ["CA", "Ops", "Mkt"]}, {"id": "FG-07.03", "title": "QR codes on FSR marketing materials", "group": "Marketing & Promotions Engine", "gid": "FG-07", "depends": "", "phase": 2, "areas": ["Conversion & Acquisition", "Marketing Enablement"], "areasShort": ["CA", "Mkt"]}, {"id": "FG-07.04", "title": "Digital asset management platform", "group": "Marketing & Promotions Engine", "gid": "FG-07", "depends": "", "phase": 3, "areas": ["Operational Efficiency", "Marketing Enablement"], "areasShort": ["Ops", "Mkt"]}, {"id": "FG-07.05", "title": "QR codes on product packaging", "group": "Marketing & Promotions Engine", "gid": "FG-07", "depends": "FG-07.04", "phase": 3, "areas": ["Conversion & Acquisition", "Marketing Enablement"], "areasShort": ["CA", "Mkt"]}, {"id": "FG-07.06", "title": "Franchise self-serve marketing portal", "group": "Marketing & Promotions Engine", "gid": "FG-07", "depends": "", "phase": 2, "areas": ["Operational Efficiency", "Marketing Enablement"], "areasShort": ["Ops", "Mkt"]}], "FG-08": [{"id": "FG-08.01", "title": "Knowledge base and concierge capture system", "group": "Internal Tools & Intelligence", "gid": "FG-08", "depends": "FG-08.03", "phase": 3, "areas": ["Operational Efficiency", "Technical Foundation", "Search & Discovery Authority"], "areasShort": ["Ops", "Tech", "Search"]}, {"id": "FG-08.02", "title": "Account health dashboard for internal teams", "group": "Internal Tools & Intelligence", "gid": "FG-08", "depends": "", "phase": 2, "areas": ["Operational Efficiency", "Financial Visibility"], "areasShort": ["Ops", "Fin"]}, {"id": "FG-08.03", "title": "Session and user-level analytics implementation", "group": "Internal Tools & Intelligence", "gid": "FG-08", "depends": "FG-08.03", "phase": 3, "areas": ["Operational Efficiency", "Technical Foundation"], "areasShort": ["Ops", "Tech"]}, {"id": "FG-08.04", "title": "Rep continuity record", "group": "Internal Tools & Intelligence", "gid": "FG-08", "depends": "", "phase": 3, "areas": ["Customer Experience", "Operational Efficiency"], "areasShort": ["CX", "Ops"]}], "FG-09": [{"id": "FG-09.01", "title": "GeneXus to modern accounting platform migration", "group": "Platform & Infrastructure", "gid": "FG-09", "depends": "", "phase": 2, "areas": ["Operational Efficiency", "Financial Visibility", "Technical Foundation"], "areasShort": ["Ops", "Fin", "Tech"]}, {"id": "FG-09.02", "title": "API-based frontend architecture", "group": "Platform & Infrastructure", "gid": "FG-09", "depends": "", "phase": 3, "areas": ["Technical Foundation"], "areasShort": ["Tech"]}, {"id": "FG-09.03", "title": "Migration to DEWE", "group": "Platform & Infrastructure", "gid": "FG-09", "depends": "", "phase": 1, "areas": [], "areasShort": []}]}}</script>
+  <script>
+    const DATA = JSON.parse(document.getElementById("roadmap-data").textContent);
+    document.getElementById("doc-title").textContent = DATA.title;
+    document.getElementById("doc-sub").textContent = DATA.subtitle;
+    document.title = DATA.title;
+
+    const tl = document.getElementById("timeline");
+    DATA.phases.forEach((p, i) => {
+      const div = document.createElement("div");
+      div.className = "phase-pill p" + (i + 1);
+      div.innerHTML = '<div class="phase-dot"></div><strong>' + p.label + '</strong><span class="hint">' + p.hint + '</span>';
+      tl.appendChild(div);
+    });
+
+    const legend = document.getElementById("legend");
+    DATA.valueLegend.forEach((v) => {
+      const row = document.createElement("div");
+      row.innerHTML = "<abbr>" + v.abbr + "</abbr><span>" + v.full + "</span>";
+      legend.appendChild(row);
+    });
+
+    const lanes = document.getElementById("lanes");
+    DATA.groups.forEach((gid) => {
+      const items = DATA.byGroup[gid] || [];
+      const label = DATA.groupLabels[gid] || gid;
+      const lane = document.createElement("div");
+      lane.className = "swimlane";
+      lane.innerHTML =
+        '<div class="lane-label"><span class="lane-id">' +
+        gid +
+        '</span><span class="lane-title">' +
+        label +
+        "</span></div>";
+      const grid = document.createElement("div");
+      grid.className = "phase-grid";
+      for (let ph = 1; ph <= 3; ph++) {
+        const col = document.createElement("div");
+        col.className = "phase-col c" + ph;
+        items
+          .filter((f) => f.phase === ph)
+          .forEach((f) => {
+            const el = document.createElement("div");
+            el.className = "feat";
+            let tags = "";
+            if (f.areasShort && f.areasShort.length) {
+              tags =
+                '<div class="tags">' +
+                f.areasShort
+                  .map((a) => '<span class="tag ' + a + '">' + a + "</span>")
+                  .join("") +
+                "</div>";
+            }
+            let deps = "";
+            if (f.depends) {
+              deps = '<div class="feat-deps">Depends on: ' + f.depends + "</div>";
+            }
+            el.innerHTML =
+              '<div class="feat-id">' +
+              f.id +
+              '</div><div class="feat-title">' +
+              f.title +
+              "</div>" +
+              tags +
+              deps;
+            col.appendChild(el);
+          });
+        grid.appendChild(col);
+      }
+      lane.appendChild(grid);
+      lanes.appendChild(lane);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Take5.com Rebuild — SEO / AEO / GEO (executive summary)</title>
+<link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-weight: 400;
+  background: #192036;
+  color: #ffffff;
+  margin: 0;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Full-bleed hero (viewport width); content stays in .page */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 340px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 110% 85% at 50% -35%, rgba(0, 174, 239, 0.38), transparent 58%),
+    radial-gradient(ellipse 75% 55% at 92% 8%, rgba(0, 254, 124, 0.14), transparent 52%),
+    radial-gradient(ellipse 65% 50% at 8% 18%, rgba(120, 185, 255, 0.11), transparent 48%),
+    linear-gradient(180deg, rgba(8, 22, 48, 0.55) 0%, rgba(25, 32, 54, 0) 100%);
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 320px;
+  z-index: 0;
+  pointer-events: none;
+  background: url('black-lines-1.png') center top / cover no-repeat;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+}
+
+.page {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  padding: 44px 28px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(0,254,124,0.22);
+  gap: 20px;
+}
+.header-left { display: flex; flex-direction: column; gap: 10px; max-width: 720px; }
+
+/* Caption / footnote — Titillium Light, 9–10pt */
+.eyebrow {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: #00aeef;
+  text-transform: uppercase;
+}
+/* Hero / cover title — Sansation Bold, 48–64pt */
+.headline {
+  font-family: 'Sansation', 'Titillium Web', sans-serif;
+  font-size: clamp(48pt, 4vw + 28pt, 64pt);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.headline em { color: #00fe7c; font-style: normal; font-family: inherit; font-weight: 700; }
+/* Subheading — Titillium SemiBold, 16–18pt */
+.subhead {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: clamp(16pt, 1.5vw, 18pt);
+  font-weight: 600;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.45;
+  margin-top: 8px;
+  max-width: 38em;
+}
+.logo-wrap {
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.logo-wrap img {
+  height: 132px;
+  width: auto;
+  display: block;
+  opacity: 1;
+  margin-top: 2px;
+}
+
+/* Slide / page title — Sansation Bold, 24–28pt (intro below hero) */
+.lede {
+  font-family: 'Sansation', 'Titillium Web', sans-serif;
+  font-size: clamp(24pt, 2.5vw, 28pt);
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 26px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.categories { display: flex; flex-direction: column; gap: 14px; }
+
+.category {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(0,0,0,0.28);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.cat-num {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #00aeef;
+  color: #fff;
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 12pt;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+/* Section title — Sansation Bold, 32–40pt */
+.cat-title {
+  font-family: 'Sansation', 'Titillium Web', sans-serif;
+  font-size: clamp(30pt, 2.5vw + 18pt, 30pt);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  flex: 1;
+  line-height: 1.2;
+}
+/* Caption — Titillium Light, 9–10pt */
+.cat-badge {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.badge-high { color: #00fe7c; border-color: rgba(0,254,124,0.5); background: rgba(0,254,124,0.07); }
+.badge-medium { color: #00aeef; border-color: rgba(0,174,239,0.5); background: rgba(0,174,239,0.07); }
+
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+/* Body — Titillium Regular, 11–12pt */
+.summary-col {
+  padding: 16px 18px 20px;
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.55;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.summary-col:last-child { border-right: none; }
+/* Caption — Titillium Light, 9–10pt */
+.summary-label {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.label-today { color: rgba(255,160,120,0.85); }
+.label-after { color: #00fe7c; }
+.summary-text { color: rgba(255,255,255,0.82); }
+.summary-text strong { color: #fff; font-weight: 600; font-family: 'Titillium Web', 'Arial', sans-serif; }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-wordmark img { height: 88px; width: auto; opacity: 0.88; display: block; }
+/* Caption / footnote — Titillium Light, 9–10pt */
+.footer-note {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 9pt;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.03em;
+  text-align: right;
+  line-height: 1.65;
+  max-width: min(520px, 100%);
+}
+.footer-note span { color: #00aeef; }
+
+@media (max-width: 800px) {
+  .page { padding: 32px 18px 40px; }
+  .header { flex-direction: column; }
+  .logo-wrap { margin-left: 0; }
+  .logo-wrap img { height: 120px; }
+  .cat-title { font-size: clamp(28pt, 4.5vw, 36pt); }
+  .summary { grid-template-columns: 1fr; }
+  .summary-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .summary-col:last-child { border-bottom: none; }
+}
+
+@media print {
+  body::before,
+  body::after {
+    content: none;
+  }
+  body {
+    background: #192036;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">Take5.com Rebuild · Driven Brands</div>
+      <div class="headline">Strengthening discovery &amp; citation in search &amp; AI:<br><em>SEO, AEO &amp; GEO</em></div>
+      <div class="subhead">Layered structural improvements so the work you’re already doing in SEO, content, and local can compound -> earning deeper discovery and more trusted citations over time.</div>
+    </div>
+    <div class="logo-wrap">
+      <img src="elevate-brand-refresh-vert-light-transparent.png" width="200" height="200" alt="Elevate Digital">
+    </div>
+  </div>
+
+    <div class="lede">Five structural priorities where the rebuild adds the most lift.</div>
+
+    <div class="categories">
+
+      <div class="category">
+        <div class="cat-header">
+          <div class="cat-num">1</div>
+          <div class="cat-title">Machine-readable depth can still go further</div>
+          <div class="cat-badge badge-high">High impact</div>
+        </div>
+        <div class="summary">
+          <div class="summary-col">
+            <div class="summary-label label-today">Today</div>
+            <div class="summary-text">Schema and feeds are a baseline; a fuller entity graph, AI-ready index, and server-rendered critical facts would help crawlers use every signal you publish.</div>
+          </div>
+          <div class="summary-col">
+            <div class="summary-label label-after">After rebuild</div>
+            <div class="summary-text"><strong>Unified Schema</strong>, a <strong>canonical AI feed</strong>, <strong>SSR</strong> for critical facts, and consistent page structure.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <div class="cat-num">2</div>
+          <div class="cat-title">Location data is fragmented and slow to fix</div>
+          <div class="cat-badge badge-high">High impact</div>
+        </div>
+        <div class="summary">
+          <div class="summary-col">
+            <div class="summary-label label-today">Today</div>
+            <div class="summary-text">NAP and Google Business Profiles drift; emergency fixes take days; local pages carry weak “local” signals.</div>
+          </div>
+          <div class="summary-col">
+            <div class="summary-label label-after">After rebuild</div>
+            <div class="summary-text"><strong>One source of truth</strong>, fast <strong>overrides</strong>, auto-synced listings, stronger local pages — <strong>wait times</strong> in later phases.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <div class="cat-num">3</div>
+          <div class="cat-title">Content doesn’t answer searchable questions</div>
+          <div class="cat-badge badge-high">High impact</div>
+        </div>
+        <div class="summary">
+          <div class="summary-col">
+            <div class="summary-label label-today">Today</div>
+            <div class="summary-text">Thin service copy, unstructured articles, and voice rules that avoid the terms people actually search.</div>
+          </div>
+          <div class="summary-col">
+            <div class="summary-label label-after">After rebuild</div>
+            <div class="summary-text"><strong>Services hub</strong>, FAQ, and <strong>answer-first</strong> modules — editorial guidelines aligned with intent, not just brand tone.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <div class="cat-num">4</div>
+          <div class="cat-title">Headroom to grow in AI-assisted discovery</div>
+          <div class="cat-badge badge-high">High impact</div>
+        </div>
+        <div class="summary">
+          <div class="summary-col">
+            <div class="summary-label label-today">Today</div>
+            <div class="summary-text">Stronger brand and entity signals, plus a fuller off-site footprint, would help close the gap vs. competitors on conversational and “near me” queries.</div>
+          </div>
+          <div class="summary-col">
+            <div class="summary-label label-after">After rebuild</div>
+            <div class="summary-text">Defined <strong>brand entity</strong>, structured <strong>off-site program</strong>, conversational-ready local content, and a <strong>prompt audit</strong> to steer priorities.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="category">
+        <div class="cat-header">
+          <div class="cat-num">5</div>
+          <div class="cat-title">We can’t prove what works, especially in AI</div>
+          <div class="cat-badge badge-medium">Medium impact</div>
+        </div>
+        <div class="summary">
+          <div class="summary-col">
+            <div class="summary-label label-today">Today</div>
+            <div class="summary-text">Analytics don’t line up; no experimentation loop; no view of AI citations or unsampled conversion paths.</div>
+          </div>
+          <div class="summary-col">
+            <div class="summary-label label-after">After rebuild</div>
+            <div class="summary-text">Shared <strong>data layer</strong>, <strong>A/B testing</strong>, <strong>Share of Model</strong> tracking, and <strong>BigQuery</strong> for full-funnel reporting.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  <div class="footer">
+    <div class="footer-wordmark">
+      <img src="elevate-brand-refresh-vert-light-transparent.png" width="160" height="160" alt="Elevate Digital">
+    </div>
+    <div class="footer-note">
+      Rankings depend on many signals; this work extends structural runway so SEO, content, and listings can compound.<br>
+      <span>Elevate Digital · Driven Brands · PRJ4445 · 2026</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

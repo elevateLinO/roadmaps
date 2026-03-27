@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Process cycle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@700&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --elevate-navy: #192036;
+      --electric-blue: #00aeef;
+      --bg-card: #1e2a45;
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.55);
+      --node: #1e2a45;
+      --border: rgba(0, 174, 239, 0.35);
+      --accent: #00aeef;
+      --shadow: rgba(0, 0, 0, 0.35);
+      --font-display: "Sansation", Georgia, serif;
+      --font: "Titillium Web", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      background-color: var(--elevate-navy);
+      color: var(--text);
+      position: relative;
+      isolation: isolate;
+    }
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 340px;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 110% 85% at 50% -35%, rgba(0, 174, 239, 0.38), transparent 58%),
+        radial-gradient(ellipse 75% 55% at 92% 8%, rgba(0, 254, 124, 0.14), transparent 52%),
+        radial-gradient(ellipse 65% 50% at 8% 18%, rgba(120, 185, 255, 0.11), transparent 48%),
+        linear-gradient(180deg, rgba(8, 22, 48, 0.55) 0%, rgba(25, 32, 54, 0) 100%);
+    }
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 320px;
+      z-index: 0;
+      pointer-events: none;
+      background: url("black-lines-1.png") center top / cover no-repeat;
+      opacity: 0.16;
+      mix-blend-mode: screen;
+      mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+    }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+      background: transparent;
+    }
+    .page-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .page-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      max-width: 42rem;
+      text-align: center;
+    }
+    .brand-logo {
+      height: clamp(40px, 8vw, 56px);
+      width: auto;
+      object-fit: contain;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      font-weight: 700;
+      margin: 0;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .diagram-wrap {
+      width: min(92vw, 720px);
+      aspect-ratio: 1;
+      max-height: min(92vw, 720px);
+    }
+    .diagram-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .node-box {
+      fill: var(--node);
+      stroke: var(--border);
+      stroke-width: 1.5;
+      filter: drop-shadow(0 2px 6px var(--shadow));
+    }
+    .node-num {
+      fill: var(--accent);
+      font-weight: 700;
+      font-size: 11px;
+      font-family: var(--font);
+    }
+    .node-text {
+      fill: rgba(255, 255, 255, 0.92);
+      font-size: 11px;
+      font-family: var(--font);
+      font-weight: 500;
+    }
+    .arrow-chunk {
+      stroke: rgba(0, 0, 0, 0.12);
+      stroke-width: 0.75;
+    }
+    .center-label {
+      fill: var(--electric-blue);
+      font-size: 13px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    footer {
+      margin-top: 1.5rem;
+      font-size: 0.625rem;
+      font-weight: 300;
+      color: var(--electric-blue);
+      letter-spacing: 0.02em;
+      text-align: center;
+      max-width: 36rem;
+    }
+    .brand-wordmark {
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    @media print {
+      body::before,
+      body::after {
+        content: none;
+      }
+      body {
+        background: var(--elevate-navy);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+  <div class="page-body">
+  <div class="page-head">
+    <img
+      class="brand-logo"
+      src="elevate-brand-refresh-vert-light-transparent.png"
+      width="120"
+      height="180"
+      alt="Elevate Digital"
+    />
+    <h1>Iterative workflow cycle</h1>
+  </div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg" aria-label="Cycle diagram">
+      <defs id="arrow-defs"></defs>
+      <g id="cycle-content"></g>
+    </svg>
+  </div>
+  <footer>
+    <div class="brand-wordmark">Elevate Digital</div>
+    Flow returns from step 7 to step 1.
+  </footer>
+  </div>
+  </div>
+
+  <script>
+    const steps = [
+      "Feature documentation & brand guidelines",
+      "AI context documents",
+      "Site build & design docs",
+      "Revise design docs",
+      "AI context docs",
+      "Site build",
+      "Design docs",
+    ];
+
+    const cx = 260;
+    const cy = 260;
+    const n = steps.length;
+    const rNodes = 236;
+    const rMid = 150;
+    const halfW = 22;
+    const rOuter = rMid + halfW;
+    const rInner = rMid - halfW;
+    const shoulderOut = 16;
+    const shoulderIn = 14;
+    const tipExtend = 32;
+
+    /** Elevate Digital data-viz hues (no red/brown/pink). */
+    const palette = [
+      { dark: "#0077a3", light: "#00aeef" },
+      { dark: "#0a5a8f", light: "#0f75bd" },
+      { dark: "#00c868", light: "#00fe7c" },
+      { dark: "#5a2db8", light: "#723aca" },
+      { dark: "#cc7700", light: "#ff9600" },
+      { dark: "#c9b800", light: "#ffea37" },
+      { dark: "#2a8fc4", light: "#33d4ff" },
+    ];
+
+    function polar(x, y, r, angleRad) {
+      return [x + r * Math.cos(angleRad), y + r * Math.sin(angleRad)];
+    }
+
+    function outerAt(a) {
+      return polar(cx, cy, rOuter, a);
+    }
+    function innerAt(a) {
+      return polar(cx, cy, rInner, a);
+    }
+
+    /**
+     * PowerPoint-style block arrow: thick annulus + wide triangular head + flat radial tail.
+     * a0 = tail cut, a1 = tip angle (past next node for overlap).
+     */
+    function blockArrowPath(a0, a1) {
+      const span = a1 - a0;
+      const headFrac = 0.34;
+      const aHeadStart = Math.max(a0 + span * 0.12, a1 - span * headFrac);
+
+      const [ox0, oy0] = outerAt(a0);
+      const [oxb, oyb] = outerAt(aHeadStart);
+      const [ix0, iy0] = innerAt(a0);
+      const [ixb, iyb] = innerAt(aHeadStart);
+
+      const Os = polar(cx, cy, rOuter + shoulderOut, aHeadStart);
+      const Is = polar(cx, cy, rInner - shoulderIn, aHeadStart);
+
+      const [oxTip, oyTip] = outerAt(a1);
+      const tx = -Math.sin(a1);
+      const ty = Math.cos(a1);
+      const tipX = oxTip + tipExtend * tx;
+      const tipY = oyTip + tipExtend * ty;
+
+      return [
+        "M",
+        ox0,
+        oy0,
+        "A",
+        rOuter,
+        rOuter,
+        0,
+        0,
+        1,
+        oxb,
+        oyb,
+        "L",
+        Os[0],
+        Os[1],
+        "L",
+        tipX,
+        tipY,
+        "L",
+        Is[0],
+        Is[1],
+        "L",
+        ixb,
+        iyb,
+        "A",
+        rInner,
+        rInner,
+        0,
+        0,
+        1,
+        ix0,
+        iy0,
+        "L",
+        ox0,
+        oy0,
+        "Z",
+      ].join(" ");
+    }
+
+    function wrapText(str, maxLen) {
+      if (str.length <= maxLen) return [str];
+      const words = str.split(" ");
+      const out = [];
+      let cur = "";
+      for (const w of words) {
+        const next = cur ? cur + " " + w : w;
+        if (next.length <= maxLen) cur = next;
+        else {
+          if (cur) out.push(cur);
+          cur = w;
+        }
+      }
+      if (cur) out.push(cur);
+      return out.length ? out : [str];
+    }
+
+    const defs = document.getElementById("arrow-defs");
+    const g = document.getElementById("cycle-content");
+    const angle = (i) => -Math.PI / 2 + (i / n) * 2 * Math.PI;
+    const tailPad = 0.038;
+    const headOverlap = 0.055;
+
+    for (let k = 0; k < n; k++) {
+      const c = palette[k % palette.length];
+      const lg = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+      lg.setAttribute("id", "arrow-grad-" + k);
+      lg.setAttribute("gradientUnits", "userSpaceOnUse");
+      const midA = angle(k) + (2 * Math.PI) / n / 2;
+      const ux = Math.cos(midA);
+      const uy = Math.sin(midA);
+      lg.setAttribute("x1", cx - ux * 120);
+      lg.setAttribute("y1", cy - uy * 120);
+      lg.setAttribute("x2", cx + ux * 120);
+      lg.setAttribute("y2", cy + uy * 120);
+      const s0 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+      s0.setAttribute("offset", "0%");
+      s0.setAttribute("stop-color", c.dark);
+      const s1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+      s1.setAttribute("offset", "100%");
+      s1.setAttribute("stop-color", c.light);
+      lg.appendChild(s0);
+      lg.appendChild(s1);
+      defs.appendChild(lg);
+    }
+
+    for (let i = n - 1; i >= 0; i--) {
+      const a0 = angle(i) + tailPad;
+      const a1 = angle(i + 1) + headOverlap;
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", blockArrowPath(a0, a1));
+      path.setAttribute("fill", "url(#arrow-grad-" + i + ")");
+      path.setAttribute("class", "arrow-chunk");
+      g.appendChild(path);
+    }
+
+    const title = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    title.setAttribute("x", cx);
+    title.setAttribute("y", cy + 5);
+    title.setAttribute("text-anchor", "middle");
+    title.setAttribute("class", "center-label");
+    title.textContent = "Cycle";
+    g.appendChild(title);
+
+    const boxW = 132;
+
+    for (let i = 0; i < n; i++) {
+      const a = angle(i);
+      const [nx, ny] = polar(cx, cy, rNodes, a);
+      const lines = wrapText(steps[i], 18);
+      const lineH = 12;
+      const boxH = Math.max(46, 22 + lines.length * lineH + 10);
+
+      const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", nx - boxW / 2);
+      rect.setAttribute("y", ny - boxH / 2);
+      rect.setAttribute("width", boxW);
+      rect.setAttribute("height", boxH);
+      rect.setAttribute("rx", 8);
+      rect.setAttribute("class", "node-box");
+
+      const num = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      num.setAttribute("x", nx);
+      num.setAttribute("y", ny - boxH / 2 + 16);
+      num.setAttribute("text-anchor", "middle");
+      num.setAttribute("class", "node-num");
+      num.textContent = String(i + 1);
+
+      const top = ny - boxH / 2;
+      group.appendChild(rect);
+      group.appendChild(num);
+      lines.forEach((line, li) => {
+        const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        t.setAttribute("x", nx);
+        t.setAttribute("y", top + 18 + 12 + li * lineH);
+        t.setAttribute("text-anchor", "middle");
+        t.setAttribute("class", "node-text");
+        t.textContent = line;
+        group.appendChild(t);
+      });
+      g.appendChild(group);
+    }
+  </script>
+</body>
+</html>

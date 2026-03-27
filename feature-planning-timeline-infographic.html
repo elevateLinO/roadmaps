@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feature planning timeline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sansation:wght@700&family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --elevate-navy: #192036;
+      --elevate-white: #ffffff;
+      --binary-blue: #0f75bd;
+      --electric-blue: #00aeef;
+      --gamma-green: #00fe7c;
+      --violet-vortex: #723aca;
+      --orbital-orange: #ff9600;
+      --solar-yellow: #ffea37;
+      --bg-secondary: #111827;
+      --bg-card: #1e2a45;
+      --text-primary: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.6);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --font-display: "Sansation", Georgia, serif;
+      --font-body: "Titillium Web", system-ui, sans-serif;
+      --font-mono: ui-monospace, monospace;
+      /* Phase UI: modest corners (not full pills) */
+      --phase-slab-radius: 6px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background-color: var(--elevate-navy);
+      position: relative;
+      isolation: isolate;
+    }
+    /**
+     * Full-bleed hero (viewport width) — same layers as take5-seo-geo-infographic-ceo.html.
+     */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 340px;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 110% 85% at 50% -35%, rgba(0, 174, 239, 0.38), transparent 58%),
+        radial-gradient(ellipse 75% 55% at 92% 8%, rgba(0, 254, 124, 0.14), transparent 52%),
+        radial-gradient(ellipse 65% 50% at 8% 18%, rgba(120, 185, 255, 0.11), transparent 48%),
+        linear-gradient(180deg, rgba(8, 22, 48, 0.55) 0%, rgba(25, 32, 54, 0) 100%);
+    }
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 320px;
+      z-index: 0;
+      pointer-events: none;
+      background: url("black-lines-1.png") center top / cover no-repeat;
+      opacity: 0.16;
+      mix-blend-mode: screen;
+      mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+    }
+    .page {
+      width: 100%;
+      max-width: min(100%, 1920px);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      padding: 1.5rem clamp(0.75rem, 3vw, 2.75rem) 2.5rem;
+      min-height: 100vh;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(220px, 290px) minmax(0, 1fr);
+      gap: clamp(1rem, 2vw, 1.75rem);
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .key-sidebar {
+        position: static;
+        order: 2;
+      }
+      .main-panel { order: 1; }
+    }
+    .key-sidebar {
+      position: sticky;
+      top: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1rem 0.85rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .key-title {
+      font-family: var(--font-display);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--electric-blue);
+      margin: 0 0 0.85rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(0, 174, 239, 0.25);
+    }
+    .legend-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      color: var(--text-primary);
+    }
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      min-width: 14px;
+      border-radius: 4px;
+      margin-top: 0.25rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    .legend-item code {
+      font-family: var(--font-mono);
+      font-size: 1.0625rem;
+      color: var(--electric-blue);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .legend-name {
+      display: block;
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 0.875rem;
+      margin-top: 0.2rem;
+    }
+    .legend-item--highlight {
+      background: rgba(0, 174, 239, 0.2);
+      outline: 2px solid rgba(0, 174, 239, 0.65);
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .legend-item {
+        transition: background 0.18s ease, outline-color 0.18s ease, box-shadow 0.18s ease;
+      }
+    }
+    .row--hover-key {
+      background: rgba(0, 174, 239, 0.06);
+    }
+    .row--hover-key .row-label {
+      background: rgba(0, 174, 239, 0.08);
+    }
+    .row--selected {
+      background: rgba(0, 174, 239, 0.1);
+    }
+    .row--selected .row-label {
+      background: rgba(0, 174, 239, 0.14);
+      box-shadow: inset 3px 0 0 var(--electric-blue);
+    }
+    .row[tabindex="0"] {
+      cursor: pointer;
+      outline: none;
+    }
+    .row[tabindex="0"]:focus-visible {
+      outline: 2px solid rgba(0, 174, 239, 0.85);
+      outline-offset: -2px;
+    }
+    .timeline-flyout-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+      gap: clamp(0.75rem, 1.5vw, 1.35rem);
+      align-items: start;
+    }
+    @media (max-width: 1100px) {
+      .timeline-flyout-shell {
+        grid-template-columns: 1fr;
+      }
+      .feature-flyout {
+        position: relative;
+        max-height: none;
+      }
+    }
+    .timeline-column {
+      min-width: 0;
+    }
+    .feature-flyout {
+      position: sticky;
+      top: 1rem;
+      min-height: 200px;
+      border-radius: 12px;
+      background: linear-gradient(
+        165deg,
+        rgba(30, 42, 69, 0.98) 0%,
+        rgba(17, 24, 39, 0.92) 55%,
+        rgba(25, 32, 54, 0.96) 100%
+      );
+      border: 1px solid rgba(0, 174, 239, 0.28);
+      box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+    .feature-flyout__accent {
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--electric-blue), var(--gamma-green));
+      opacity: 0.95;
+    }
+    .feature-flyout__inner {
+      padding: 1rem 1rem 1.1rem;
+      position: relative;
+    }
+    .feature-flyout__close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 2rem;
+      height: 2rem;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .feature-flyout__close:hover {
+      background: rgba(0, 174, 239, 0.2);
+      color: var(--text-primary);
+    }
+    .feature-flyout__close:focus-visible {
+      outline: 2px solid var(--electric-blue);
+      outline-offset: 2px;
+    }
+    .feature-flyout--empty .feature-flyout__close {
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .feature-flyout__empty {
+      padding: 1.5rem 0.5rem;
+      text-align: center;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .feature-flyout--empty .feature-flyout__empty {
+      display: block;
+    }
+    .feature-flyout:not(.feature-flyout--empty) .feature-flyout__empty {
+      display: none;
+    }
+    .feature-flyout--empty .feature-flyout__detail {
+      display: none;
+    }
+    .feature-flyout__detail {
+      padding-right: 1.75rem;
+    }
+    .feature-flyout__meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+    .feature-flyout__meta code {
+      font-family: var(--font-mono);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--electric-blue);
+      letter-spacing: 0.04em;
+    }
+    .feature-flyout__phase {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.55rem;
+      border-radius: var(--phase-slab-radius);
+      background: rgba(0, 174, 239, 0.18);
+      border: 1px solid rgba(0, 174, 239, 0.35);
+      color: var(--text-primary);
+    }
+    .feature-flyout__title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin: 0 0 0.75rem;
+      line-height: 1.35;
+    }
+    .feature-flyout__group-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding: 0.45rem 0.65rem;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-subtle);
+      line-height: 1.35;
+    }
+    .feature-flyout__group-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+    .feature-flyout__section {
+      margin-top: 1rem;
+    }
+    #flyout-depends-section {
+      margin-top: 0;
+    }
+    #flyout-depends-section[hidden] + #flyout-summary-section {
+      margin-top: 0;
+    }
+    .feature-flyout__section h4 {
+      font-family: var(--font-display);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(0, 174, 239, 0.95);
+      margin: 0 0 0.45rem;
+    }
+    .feature-flyout__section p {
+      margin: 0;
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.88);
+      font-weight: 400;
+    }
+    .feature-flyout__kpis {
+      margin: 0;
+      padding: 0 0 0 1.1rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.82);
+    }
+    .feature-flyout__kpis li {
+      margin-bottom: 0.4rem;
+    }
+    .feature-flyout__kpis li::marker {
+      color: var(--gamma-green);
+    }
+    .feature-flyout__value-areas {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.8125rem;
+      line-height: 1.35;
+    }
+    .feature-flyout__value-area {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.4rem 0.55rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+    }
+    .feature-flyout__value-area--on {
+      color: rgba(255, 255, 255, 0.92);
+      background: rgba(0, 254, 124, 0.07);
+      border-color: rgba(0, 254, 124, 0.22);
+    }
+    .feature-flyout__value-area--off {
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+    .feature-flyout__va-marker {
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 0.32rem;
+    }
+    .feature-flyout__value-area--on .feature-flyout__va-marker {
+      background: var(--gamma-green);
+      box-shadow: 0 0 0 2px rgba(0, 254, 124, 0.22);
+    }
+    .feature-flyout__value-area--off .feature-flyout__va-marker {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .feature-flyout__va-label {
+      flex: 1;
+      min-width: 0;
+    }
+    .feature-flyout__depends {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+    .feature-flyout__dep-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.42rem 0.65rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--electric-blue);
+      background: rgba(0, 174, 239, 0.12);
+      border: 1px solid rgba(0, 174, 239, 0.32);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .feature-flyout__dep-chip code {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+    .main-panel {
+      min-width: 0;
+    }
+    .title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .brand-logo {
+      flex-shrink: 0;
+      height: clamp(52px, 10vw, 72px);
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .title-stack {
+      min-width: 0;
+      flex: 1;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin: 0 0 0.5rem;
+      text-align: left;
+    }
+    .title-stack .subtitle {
+      margin-bottom: 0;
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin: 0 0 0.45rem;
+      max-width: 65ch;
+      text-align: left;
+    }
+    .sheet-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.4rem 1.25rem;
+      margin: 0 0 1.35rem;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+    .sheet-meta__label {
+      font-weight: 400;
+      margin-right: 0.5rem;
+    }
+    .sheet-meta time {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .sheet-meta__actions-row {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1rem;
+    }
+    .sheet-meta__live {
+      display: block;
+      margin: 0;
+      max-width: 42rem;
+      font-size: 0.8125rem;
+      line-height: 1.45;
+      color: var(--gamma-green);
+    }
+    .sheet-meta__live--warn {
+      color: var(--orbital-orange);
+    }
+    .sheet-meta__file-hint {
+      margin: 0;
+      max-width: 42rem;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: var(--text-muted);
+    }
+    .sheet-meta__file-hint code {
+      font-family: var(--font-mono);
+      font-size: 0.8em;
+      padding: 0.05em 0.3em;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .sheet-meta__actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .sheet-refresh-btn {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 174, 239, 0.4);
+      background: rgba(0, 174, 239, 0.12);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .sheet-refresh-btn:hover {
+      background: rgba(0, 174, 239, 0.22);
+      border-color: rgba(0, 174, 239, 0.55);
+    }
+    .sheet-refresh-btn:focus-visible {
+      outline: 2px solid var(--electric-blue);
+      outline-offset: 2px;
+    }
+    .sheet-refresh-btn:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+    .sheet-open-link {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--electric-blue);
+      text-decoration: none;
+    }
+    .sheet-open-link:hover {
+      text-decoration: underline;
+    }
+    .sort-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 0.65rem 1.25rem;
+      margin-bottom: 1rem;
+      padding: 0.65rem 0.9rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    }
+    .sort-toolbar .sort-hint {
+      flex: 1 1 16rem;
+      min-width: 0;
+      max-width: min(80ch, 100%);
+      margin: 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      text-align: left;
+      /* Stable height when hint copy length changes */
+      min-height: 3em;
+      box-sizing: content-box;
+    }
+    .sort-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--electric-blue);
+      white-space: nowrap;
+    }
+    .sort-segment {
+      display: inline-flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 174, 239, 0.35);
+    }
+    .sort-btn {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .sort-btn:hover {
+      color: var(--text-primary);
+      background: rgba(0, 174, 239, 0.1);
+    }
+    .sort-btn:focus-visible {
+      outline: 2px solid var(--electric-blue);
+      outline-offset: 2px;
+    }
+    .sort-btn[aria-pressed="true"] {
+      background: rgba(0, 174, 239, 0.22);
+      color: var(--text-primary);
+      box-shadow: inset 0 0 0 1px rgba(0, 174, 239, 0.45);
+    }
+    .sort-btn + .sort-btn {
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .axis-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
+      /* Must match .row — same column widths so phase labels line up with matrix */
+      gap: 0;
+      align-items: end;
+      margin-bottom: 0.5rem;
+    }
+    .axis-pills {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+      /* Same horizontal inset as .track-wrap — inner width matches .track-inner */
+      padding: 0 0.7rem;
+      border-radius: var(--phase-slab-radius);
+      overflow: hidden;
+      box-sizing: border-box;
+      /* Same column lines as .track-inner .track-grid (clean grid with matrix + bars) */
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent calc(100% / 6 - 1px),
+          rgba(0, 174, 239, 0.12) calc(100% / 6 - 1px),
+          rgba(0, 174, 239, 0.12) calc(100% / 6)
+        ),
+        rgba(255, 255, 255, 0.04);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 1px 0 rgba(0, 174, 239, 0.12);
+    }
+    .axis-pill {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0.5rem 0.25rem;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .timeline-block {
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
+      gap: 0;
+      min-height: 64px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .row:last-child { border-bottom: none; }
+    .row-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      padding: 0.75rem 0.9rem;
+      background: rgba(0, 0, 0, 0.15);
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      border-right: 1px solid var(--border-subtle);
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+    }
+    .row-label-main {
+      flex: 1;
+      min-width: 0;
+    }
+    .row-label strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .id-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.25rem 0.75rem;
+      margin-top: 0.15rem;
+    }
+    .row-label .id {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    .row-label .gid {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .row-label .gid code {
+      font-family: var(--font-mono);
+      font-size: inherit;
+      color: var(--electric-blue);
+    }
+    .track-wrap {
+      position: relative;
+      padding: 0.55rem 0.7rem;
+      background: rgba(17, 24, 39, 0.35);
+    }
+    /* Grid lines live inside .track-inner so 100%/6 matches bar left/width % (same box as FG lozenges) */
+    .track-inner {
+      position: relative;
+      height: 46px;
+      width: 100%;
+      border-radius: var(--phase-slab-radius);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+    }
+    .track-inner .track-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent calc(100% / 6 - 1px),
+        rgba(0, 174, 239, 0.12) calc(100% / 6 - 1px),
+        rgba(0, 174, 239, 0.12) calc(100% / 6)
+      );
+    }
+    .bar {
+      position: absolute;
+      z-index: 1;
+      top: 4px;
+      height: 38px;
+      border-radius: calc(var(--phase-slab-radius) - 1px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .bar:not(.bar--darktext) {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+    .bar--darktext {
+      color: var(--elevate-navy);
+      text-shadow: none;
+    }
+    footer {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 174, 239, 0.2);
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: var(--electric-blue);
+      letter-spacing: 0.02em;
+    }
+    .brand-wordmark {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--electric-blue);
+      margin: 0;
+    }
+    footer p {
+      margin: 0;
+    }
+    @media (max-width: 900px) {
+      .axis-pill { font-size: 0.8rem; padding: 0.4rem 0.15rem; }
+    }
+    @media print {
+      body::before,
+      body::after {
+        content: none;
+      }
+      body { background: var(--elevate-navy); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .feature-flyout {
+        display: none;
+      }
+      .timeline-flyout-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="layout">
+      <aside class="key-sidebar" aria-label="Feature group key">
+        <h2 class="key-title">Feature group key</h2>
+        <div class="legend-vertical" id="legend"></div>
+      </aside>
+      <div class="main-panel">
+        <div class="title-row">
+          <img
+            class="brand-logo"
+            src="elevate-brand-refresh-vert-light-transparent.png"
+            width="120"
+            height="180"
+            alt="Elevate Digital"
+          />
+          <div class="title-stack">
+            <h1 id="t-title"></h1>
+            <p class="subtitle" id="t-sub"></p>
+            <div class="sheet-meta" id="sheet-meta-block" aria-live="polite">
+              <span class="sheet-meta__embedded">
+                <span class="sheet-meta__label">Sheet data as of</span>
+                <time id="sheet-last-updated"></time>
+              </span>
+              <div class="sheet-meta__actions">
+                <span class="sheet-meta__actions-row">
+                  <button type="button" class="sheet-refresh-btn" id="sheet-refresh-btn">
+                    Check live sheet
+                  </button>
+                  <a
+                    class="sheet-open-link"
+                    id="sheet-open-link"
+                    href="https://docs.google.com/spreadsheets/d/19eZ2wcBNra2quFN4crZDs_4rcPuOdn-J1Jj9rWvE2Pc/edit?gid=108296775"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in Google Sheets</a
+                  >
+                </span>
+                <div class="sheet-meta__file-hint" id="sheet-file-hint" hidden>
+                  <strong>Live check is off</strong> while this page is opened from disk (<code>file://</code>).
+                  Browsers do not allow scripts to read the Google Sheets CSV export in that mode — it is not a CORS
+                  misconfiguration on Google’s side. Use <strong>Open in Google Sheets</strong> to compare FG-01, or run
+                  a local server in this folder (e.g. <code>python3 -m http.server</code>) and open the page at
+                  <code>http://localhost:…</code> to enable the button.
+                </div>
+                <span class="sheet-meta__live" id="sheet-live-status" hidden></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sort-toolbar" role="toolbar" aria-label="Sort timeline">
+          <span class="sort-label" id="sort-label">Sort by</span>
+          <div class="sort-segment" role="radiogroup" aria-labelledby="sort-label">
+            <button type="button" class="sort-btn" id="sort-group" data-sort="group" aria-pressed="true">
+              Feature group
+            </button>
+            <button type="button" class="sort-btn" id="sort-phase" data-sort="phase" aria-pressed="false">
+              Phase
+            </button>
+          </div>
+          <p class="sort-hint" id="sort-hint"></p>
+        </div>
+        <div class="timeline-flyout-shell">
+          <div class="timeline-column">
+            <div class="axis-row">
+              <div aria-hidden="true"></div>
+              <div class="axis-pills" id="axis-pills"></div>
+            </div>
+            <div class="timeline-block" id="timeline" aria-live="polite" aria-relevant="additions removals"></div>
+          </div>
+          <aside class="feature-flyout feature-flyout--empty" id="feature-flyout" aria-label="Feature detail">
+            <div class="feature-flyout__accent" id="flyout-accent"></div>
+            <div class="feature-flyout__inner">
+              <button type="button" class="feature-flyout__close" id="flyout-close" aria-label="Close detail panel">
+                ×
+              </button>
+              <p class="feature-flyout__empty" id="flyout-empty">
+                Click any feature row for <strong>depends on</strong>, <strong>summary</strong>,
+                <strong>feature group</strong>, <strong>KPIs</strong>, and <strong>value areas</strong> from the
+                planning sheet.
+              </p>
+              <div class="feature-flyout__detail" id="flyout-detail" hidden>
+                <div class="feature-flyout__meta">
+                  <code id="flyout-id"></code>
+                  <span class="feature-flyout__phase" id="flyout-phase"></span>
+                </div>
+                <h3 class="feature-flyout__title" id="flyout-title"></h3>
+                <div class="feature-flyout__group-pill" id="flyout-group-wrap">
+                  <span class="feature-flyout__group-swatch" id="flyout-group-swatch" aria-hidden="true"></span>
+                  <span id="flyout-group"></span>
+                </div>
+                <div class="feature-flyout__section" id="flyout-depends-section" hidden>
+                  <h4>Depends on</h4>
+                  <div class="feature-flyout__depends" id="flyout-depends"></div>
+                </div>
+                <div class="feature-flyout__section" id="flyout-summary-section">
+                  <h4>Summary</h4>
+                  <p id="flyout-desc"></p>
+                </div>
+                <div class="feature-flyout__section">
+                  <h4>KPIs</h4>
+                  <ul class="feature-flyout__kpis" id="flyout-kpis"></ul>
+                </div>
+                <div class="feature-flyout__section">
+                  <h4>Value areas</h4>
+                  <ul class="feature-flyout__value-areas" id="flyout-value-areas" aria-label="Value area columns from planning sheet"></ul>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <footer>
+          <p class="brand-wordmark">Elevate Digital</p>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <script id="data" type="application/json">{"title":"1-800-Radiator — Feature planning timeline","subtitle":"Six aligned columns from 1.0 to 3.5 (half-step bands). Source: Feature Planning sheet (Google Sheets).","axisTicks":[1,1.5,2,2.5,3,3.5],"phaseColumnCount":6,"groupLegend":[{"id":"FG-01","name":"Pre-Login Marketing & Authority"},{"id":"FG-02","name":"Part Search & Discovery"},{"id":"FG-03","name":"Cart, Ordering & Upsell"},{"id":"FG-04","name":"Shop Dashboard & Account Management"},{"id":"FG-05","name":"Delivery & Fulfillment Visibility"},{"id":"FG-06","name":"Billing & Payments"},{"id":"FG-07","name":"Marketing & Promotions Engine"},{"id":"FG-08","name":"Internal Tools & Intelligence"},{"id":"FG-09","name":"Platform & Infrastructure"}],"valueAreaLabels":["Conversion & Acquisition","Customer Experience","Operational Efficiency","Financial Visibility","Technical Foundation","Marketing Enablement","Search & Discovery Authority"],"sheetLastUpdatedUnix":1774557410,"sheetExportUrl":"https://docs.google.com/spreadsheets/d/19eZ2wcBNra2quFN4crZDs_4rcPuOdn-J1Jj9rWvE2Pc/export?format=csv&gid=108296775","sheetEditUrl":"https://docs.google.com/spreadsheets/d/19eZ2wcBNra2quFN4crZDs_4rcPuOdn-J1Jj9rWvE2Pc/edit?gid=108296775","features":[{"id":"FG-01.01","title":"Tech tips library","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"A structured library of technical articles covering cooling system failures, part specifications, and diagnostic guidance. Positions 1800R as the category authority for mechanics seeking expertise online, and builds the indexed content foundation needed for organic search and AI citation.","kpis":"Organic entrances to content pages; Avg time on page","valueAreasActive":["Conversion & Acquisition","Search & Discovery Authority"]},{"id":"FG-01.02","title":"Tech corner / editorial hub","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"An editorial hub featuring tech deep-dives, product spotlights, and category news authored or curated by 1800R's specialists. Serves as the public face of 1800R's institutional knowledge — the digital equivalent of the phone concierge's expertise, accessible to anyone before login.","kpis":"Organic entrances to content pages; Return visits to hub","valueAreasActive":["Conversion & Acquisition","Search & Discovery Authority"]},{"id":"FG-01.03","title":"News and SEO content program","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"A structured blog and SEO content program producing keyword-targeted articles, landing pages, and topical guides. Builds organic search authority in categories where 1800R has deep expertise but currently zero web presence, and creates the indexed content base for AI search citation.","kpis":"Organic search impressions; Keyword ranking growth","valueAreasActive":["Conversion & Acquisition","Search & Discovery Authority"]},{"id":"FG-01.04","title":"AI search authority content strategy","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"A strategy for structuring 1800R's public-facing content so that AI systems (ChatGPT, Gemini, Perplexity) cite it as an authoritative source. Includes semantic markup, structured data, Q&A content formats, and authoritative positioning on high-intent queries in the cooling and thermal parts category.","kpis":"AI/LLM citation rate; Featured snippet capture rate","valueAreasActive":["Conversion & Acquisition","Search & Discovery Authority"]},{"id":"FG-01.05","title":"Failure pattern insights","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"A content module surfacing 1800R's proprietary failure pattern data — part failure rates by SKU, application, and region — in a format mechanics can act on. Demonstrates 1800R's quality analytics advantage (6.2% warranty rate vs. 12–15% industry average) in a way no competitor can replicate.","kpis":"Page views; Engagement rate; Account creation from content pages","valueAreasActive":["Conversion & Acquisition","Search & Discovery Authority"]},{"id":"FG-01.06","title":"Installation guides","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"Step-by-step installation content for 1800R's core product categories, accessible pre-login and linkable via QR code from product packaging. Reduces wrong-install returns, builds technician confidence, and creates a recurring digital touchpoint for every product that ships.","kpis":"Page views; QR code scans (if linked from packaging)","valueAreasActive":["Conversion & Acquisition","Customer Experience","Search & Discovery Authority"]},{"id":"FG-01.07","title":"Vendor and brand video content","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"Video content from 1800R's vendor and brand partners covering product features, installation walkthroughs, and application guidance. Hosted within the 1800R content ecosystem rather than externally, keeping users on-site and reinforcing category authority through multimedia depth.","kpis":"Video play rate; Avg watch duration","valueAreasActive":["Conversion & Acquisition","Customer Experience","Search & Discovery Authority"]},{"id":"FG-01.08","title":"Delivery ETA preview","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"A pre-login module showing estimated delivery windows for the visitor's region, based on real logistics data. Addresses one of the most common pre-purchase questions — \"how fast can I get it?\" — without requiring account creation, and converts urgency into account signups.","kpis":"Engagement with ETA module pre-login; Account creation from ETA touchpoint","valueAreasActive":["Conversion & Acquisition","Customer Experience"]},{"id":"FG-01.09","title":"Pre-login catalog browsing","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"A browsable parts catalog available before login, allowing shops to verify 1800R carries what they need before committing to account creation. Every major competitor offers anonymous catalog browsing; removing this barrier is a direct conversion improvement for first-time accounts.","kpis":"Browse sessions; Conversion from browse to account creation","valueAreasActive":["Conversion & Acquisition","Customer Experience","Search & Discovery Authority"]},{"id":"FG-01.10","title":"Downtime cost calculator","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"","description":"An interactive calculator helping shops quantify the revenue cost of a vehicle sitting in a bay waiting for a part. Translates 1800R's speed and availability advantage into a concrete dollar figure, making the ROI of switching suppliers visible before a shop has ever logged in.","kpis":"Calculator completion rate; Account creation from calculator","valueAreasActive":["Conversion & Acquisition"]},{"id":"FG-01.11","title":"Domain consolidation and redirect strategy v1","phase":1.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"FG-09.03","description":"Consolidation of 1800R's fragmented domain portfolio (1800radiator.com, radiator.com, and others) under a single canonical domain with proper redirects. Eliminates SEO fragmentation, prevents dead-end customer experiences on secondary domains, and establishes a unified digital presence.","kpis":"Reduction in crawl errors; Organic traffic consolidation; 404 rate","valueAreasActive":["Conversion & Acquisition","Technical Foundation","Search & Discovery Authority"]},{"id":"FG-01.12","title":"Domain consolidation and redirect strategy v2","phase":3.5,"gid":"FG-01","groupName":"Pre-Login Marketing & Authority","dependsOn":"FG-09.03","description":"A second-phase domain strategy addressing deeper URL architecture, subdomain governance, and long-tail redirect management after initial consolidation. Depends on DEWE platform migration to implement cleanly at the infrastructure level.","kpis":"Reduction in crawl errors; Organic traffic consolidation; 404 rate","valueAreasActive":["Conversion & Acquisition","Technical Foundation","Search & Discovery Authority"]},{"id":"FG-02.01","title":"Nationwide inventory visibility","phase":2.5,"gid":"FG-02","groupName":"Part Search & Discovery","dependsOn":"FG-09.02","description":"Surfaces real-time inventory availability across all 1800R franchise warehouses, not just the shop's assigned location. Replaces the current \"call for availability\" dead end with actionable visibility — showing whether a part exists nearby, can transfer, or needs to ship — directly in the lookup result.","kpis":"Reduction in \"call for availability\" instances; Lookup abandonment rate","valueAreasActive":["Customer Experience"]},{"id":"FG-02.02","title":"VIN-based part lookup","phase":2.0,"gid":"FG-02","groupName":"Part Search & Discovery","dependsOn":"","description":"Allows shops to enter a 17-character VIN and receive a fitment-confirmed parts list for that exact vehicle. Eliminates the year/make/model/engine input friction and the risk of fitment errors — particularly valuable for newer vehicles or edge-case configurations where year/make/model lookup is unreliable.","kpis":"VIN lookup adoption rate; Lookup-to-order conversion vs. YMM lookup","valueAreasActive":["Customer Experience"]},{"id":"FG-02.03","title":"OEM cross-reference search","phase":2.0,"gid":"FG-02","groupName":"Part Search & Discovery","dependsOn":"","description":"Enables lookup by OEM part number, allowing dealership service departments and shops with OEM repair orders to cross-reference directly to 1800R's catalog. Removes a key barrier for dealership accounts and captures business from shops who source by OEM number rather than vehicle fitment.","kpis":"Cross-ref lookup volume; Attach rate of cross-ref to order","valueAreasActive":["Customer Experience"]},{"id":"FG-02.04","title":"Fuzzy search and autocomplete","phase":2.0,"gid":"FG-02","groupName":"Part Search & Discovery","dependsOn":"","description":"Adds intelligent search behavior — autocomplete suggestions, fuzzy matching, and \"did you mean\" prompts — to the part lookup experience. Accommodates the real-world search behavior of mechanics who type part names in natural language, misspell, or don't know the precise catalog terminology.","kpis":"Search completion rate; Reduction in zero-result searches","valueAreasActive":["Customer Experience"]},{"id":"FG-02.05","title":"Smart disambiguation prompts","phase":2.5,"gid":"FG-02","groupName":"Part Search & Discovery","dependsOn":"FG-02.04","description":"Transforms raw disambiguation notes (e.g. \"WithOilCooler\", \"WithTransmission\") from opaque text strings into guided prompts that walk the user through selecting the correct variant. Prevents wrong-part orders — the exact outcome 1800R's phone concierge team exists to prevent.","kpis":"Disambiguation interaction rate; Reduction in wrong-part returns","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-02.06","title":"License plate lookup","phase":2.5,"gid":"FG-02","groupName":"Part Search & Discovery","dependsOn":"FG-02.04","description":"Allows part lookup using a vehicle's license plate number, resolving to VIN via state DMV integration. Reduces input friction for shop floor users who have the plate in front of them but not the VIN, and expands lookup accessibility for mobile mechanics and quick-turn scenarios.","kpis":"License plate lookup adoption rate","valueAreasActive":["Customer Experience"]},{"id":"FG-02.07","title":"Part compatibility badge","phase":2.5,"gid":"FG-02","groupName":"Part Search & Discovery","dependsOn":"","description":"A visual badge on part listings confirming fitment compatibility for the user's identified vehicle. Provides immediate confidence at the point of selection, reducing hesitation, wrong-part returns, and the need to call the concierge for fitment confirmation.","kpis":"Reduction in wrong-part returns; Badge interaction rate","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-02.08","title":"CARB compliance explanation","phase":2.5,"gid":"FG-02","groupName":"Part Search & Discovery","dependsOn":"FG-02.02","description":"Surfaces a clear explanation when parts are filtered from results due to CARB emissions regulations in California and other regulated states. Replaces the current silent \"call for availability\" dead end with transparency about why, and whether a compliant alternative exists.","kpis":"Reduction in \"call for availability\" in CARB states; Support call volume in CA","valueAreasActive":["Customer Experience"]},{"id":"FG-03.01","title":"User-level ordering within a shop account","phase":3.5,"gid":"FG-03","groupName":"Cart, Ordering & Upsell","dependsOn":"","description":"Separates ordering activity by individual user within a shared shop account, so service managers, parts counter staff, and technicians each have their own order history and cart. Solves a significant accountability and reconciliation problem in multi-user shops where orders are currently blended at the account level.","kpis":"Orders attributed to individual users (vs. shop account); Multi-user adoption rate","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-03.02","title":"Multi-user and multi-location account management","phase":3.5,"gid":"FG-03","groupName":"Cart, Ordering & Upsell","dependsOn":"","description":"Allows a single account to support multiple users with individual logins and multiple locations under one billing relationship. Addresses the needs of larger independent groups, dealership chains, and fleet operators who currently must manage separate accounts for each location.","kpis":"Multi-user account adoption; Orders per account increase","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-03.03","title":"AI-powered part recommendation assistant","phase":2.5,"gid":"FG-03","groupName":"Cart, Ordering & Upsell","dependsOn":"FG-08.03","description":"An AI-powered assistant that analyzes the part being ordered, the vehicle, and the shop's history to recommend additional parts likely needed for the same repair. The digital equivalent of the phone concierge's verbal upsell — \"if you're replacing the radiator, you'll also want the upper hose and thermostat.\"","kpis":"Recommendation acceptance rate; AOV lift from recommendations","valueAreasActive":["Customer Experience","Operational Efficiency","Search & Discovery Authority"]},{"id":"FG-03.04","title":"Cross-sell and upsell at point of lookup","phase":3.5,"gid":"FG-03","groupName":"Cart, Ordering & Upsell","dependsOn":"FG-08.03, FG-09.04","description":"Surfaces related parts, complementary products, and commonly bought together items at the point of lookup and in the cart. Directly addresses the untouched AOV opportunity Jim Hastie identified — a shop ordering a radiator should be prompted for hoses, coolant, and fan assembly before checkout.","kpis":"Attach rate of cross-sell items; AOV lift","valueAreasActive":["Conversion & Acquisition","Customer Experience"]},{"id":"FG-03.05","title":"Kit builder","phase":2.5,"gid":"FG-03","groupName":"Cart, Ordering & Upsell","dependsOn":"","description":"A guided tool allowing shops to assemble a complete repair kit — radiator, hoses, thermostat, coolant — as a single bundled order. Powered by product relationship logic defining which parts are required, compatible, or commonly paired, reducing multi-step lookups and increasing order completeness.","kpis":"Kit builder adoption rate; AOV lift from kit orders; Return rate on kit orders","valueAreasActive":["Conversion & Acquisition","Customer Experience"]},{"id":"FG-04.01","title":"Guided new account onboarding","phase":2.0,"gid":"FG-04","groupName":"Shop Dashboard & Account Management","dependsOn":"","description":"A structured onboarding flow for new accounts that introduces the platform, surfaces the assigned rep's contact information, explains how to find parts, and sets expectations for delivery and support. Addresses the current drop-off risk of new accounts being left to self-navigate a gray UI with no guidance.","kpis":"Onboarding completion rate; Time to first order post-registration","valueAreasActive":["Conversion & Acquisition","Customer Experience"]},{"id":"FG-04.02","title":"Rep contact surfacing","phase":2.0,"gid":"FG-04","groupName":"Shop Dashboard & Account Management","dependsOn":"","description":"Prominently surfaces the shop's assigned field sales rep — name, photo, phone, and email — within the logged-in dashboard. Reinforces the relationship-driven model that is central to 1800R's competitive position, and gives shops a direct path to human support without calling a general line.","kpis":"Rep contact click rate; Inbound call volume reduction","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-04.03","title":"Persistent session / remembered device login","phase":3.0,"gid":"FG-04","groupName":"Shop Dashboard & Account Management","dependsOn":"FG-08.03","description":"Enables persistent login sessions on trusted devices so mechanics don't need to re-authenticate every visit. Jim Hastie raised this explicitly — shop floor users with greasy hands shouldn't be forced through an authentication flow every time they need to look up a part.","kpis":"Login frequency per user; Session drop-off at login screen","valueAreasActive":["Customer Experience"]},{"id":"FG-04.04","title":"Loyalty and tenure recognition","phase":3.0,"gid":"FG-04","groupName":"Shop Dashboard & Account Management","dependsOn":"FG-08.03, FG-09.04","description":"Recognizes and visually acknowledges customer tenure, purchase volume, and account milestones within the logged-in experience. Provides the digital equivalent of relationship loyalty that FSRs currently deliver in person, and creates a retention signal for accounts that feel seen and valued.","kpis":"Repeat purchase rate; Customer tenure; Churn rate among recognized accounts","valueAreasActive":["Conversion & Acquisition","Customer Experience"]},{"id":"FG-04.05","title":"Personalized post-login experience","phase":2.0,"gid":"FG-04","groupName":"Shop Dashboard & Account Management","dependsOn":"","description":"Personalizes the post-login dashboard based on the shop's purchase history, product mix, location, and segment. Jim Hastie and Lola Fiore were explicit about this vision — a collision shop should see different content and promotions than a fleet operator or mobile mechanic.","kpis":"Post-login engagement rate; Click-through on personalized content; AOV","valueAreasActive":["Conversion & Acquisition","Customer Experience","Technical Foundation"]},{"id":"FG-05.01","title":"Real-time delivery tracking page","phase":2.5,"gid":"FG-05","groupName":"Delivery & Fulfillment Visibility","dependsOn":"FG-05.04","description":"A dedicated page or tab showing live delivery status, driver location, and ETA for active orders. Directly addresses the discovery finding that shops have zero post-order visibility. Jim Hastie compared the expectation to knowing when your pizza is in the oven — this is now table stakes.","kpis":"Tracking page visits per order; Reduction in inbound delivery status calls","valueAreasActive":["Customer Experience"]},{"id":"FG-05.02","title":"Delivery fleet geo-fencing for customers","phase":2.5,"gid":"FG-05","groupName":"Delivery & Fulfillment Visibility","dependsOn":"FG-05.04","description":"Uses GPS geo-fencing on 1800R's delivery fleet to send shops an automatic notification when their driver is approaching. The iPad-based geo-fencing capability already exists on drivers' devices — this feature surfaces it to customers for the first time.","kpis":"Geo-fence notification open rate; Reduction in missed deliveries","valueAreasActive":["Customer Experience"]},{"id":"FG-05.03","title":"Tracking number surfacing for all delivery types","phase":3.5,"gid":"FG-05","groupName":"Delivery & Fulfillment Visibility","dependsOn":"","description":"Ensures every order — hotshot, transfer, and third-party courier — has a tracking number captured in the POS and surfaced to the customer. Currently inconsistent: same-day hotshot deliveries typically have no tracking number at all, leaving shops with no visibility after ordering.","kpis":"% of orders with tracking number captured and displayed","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-05.04","title":"Proprietary delivery management system","phase":3.0,"gid":"FG-05","groupName":"Delivery & Fulfillment Visibility","dependsOn":"","description":"A purpose-built delivery management platform that centralizes dispatch, routing, driver tracking, exception handling, and notification logic across the 1800R franchise network. The foundational infrastructure that enables real-time tracking, automated notifications, and proactive exception handling.","kpis":"On-time delivery rate; Driver utilization; Exception rate","valueAreasActive":["Customer Experience","Operational Efficiency","Technical Foundation"]},{"id":"FG-05.05","title":"Automated delivery delay notifications","phase":3.5,"gid":"FG-05","groupName":"Delivery & Fulfillment Visibility","dependsOn":"FG-05.04","description":"Automated text and email alerts to shops when a delivery is delayed, rerouted, or status changes. Jim Hastie confirmed text is preferred. Currently, shops only find out about delays when the driver doesn't show up — this inverts that dynamic and eliminates a major source of inbound support calls.","kpis":"Notification open rate; Reduction in inbound delay inquiry calls","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-05.06","title":"Order-by / receive-by visibility that updates in real time","phase":2.5,"gid":"FG-05","groupName":"Delivery & Fulfillment Visibility","dependsOn":"FG-05.04","description":"Displays a live, updating order-by/receive-by window that reflects real-time changes downstream. Currently, the receive-by time shown at purchase is static and never updates even if something changes. This feature keeps the shop's timeline accurate from order to delivery.","kpis":"Accuracy of ETA shown vs. actual delivery; Reduction in ETA-related support contacts","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-06.01","title":"Statement visibility","phase":2.0,"gid":"FG-06","groupName":"Billing & Payments","dependsOn":"FG-09.01","description":"Makes monthly account statements visible within the logged-in portal, showing outstanding balances, invoice history, and amounts owed. Currently not published on the site at all — shops must call in for basic financial information. Explicitly targeted as a 90-day near-term deliverable by the client team.","kpis":"Statement page views per billing cycle; Reduction in statement-related inbound calls","valueAreasActive":["Customer Experience","Financial Visibility"]},{"id":"FG-06.02","title":"Self-service payment allocation to invoices","phase":2.0,"gid":"FG-06","groupName":"Billing & Payments","dependsOn":"FG-09.01","description":"Allows shops to direct payments to specific outstanding invoices rather than relying on AR staff to manually allocate. Currently all allocation is done manually by Jacob Cozine in AR. Gives shops control over their own financial reconciliation and eliminates a significant operational overhead.","kpis":"% of payments allocated self-serve vs. manually; AR staff time savings","valueAreasActive":["Customer Experience","Operational Efficiency","Financial Visibility"]},{"id":"FG-06.03","title":"Downloadable invoices","phase":3.0,"gid":"FG-06","groupName":"Billing & Payments","dependsOn":"FG-09.01","description":"Enables shops to download PDF invoices directly from the portal for their own accounting and records. Eliminates invoice request calls, supports shops' bookkeeping workflows, and reduces AR team time spent fielding document requests.","kpis":"Invoice download rate; Reduction in invoice request calls","valueAreasActive":["Customer Experience","Operational Efficiency","Financial Visibility"]},{"id":"FG-06.04","title":"Digital payment workflow for COD customers","phase":3.0,"gid":"FG-06","groupName":"Billing & Payments","dependsOn":"FG-09.01","description":"Introduces digital payment options — ACH, card on file, or pay-by-link — for the more than 50% of customers currently on COD or net-7 cash collection. Reduces the operational overhead of driver-collected payments and creates a path to building payment trust with accounts that could move to net terms.","kpis":"COD-to-terms conversion rate; Digital payment adoption among COD accounts","valueAreasActive":["Customer Experience","Operational Efficiency","Financial Visibility"]},{"id":"FG-06.05","title":"Credit line visibility and management","phase":2.0,"gid":"FG-06","groupName":"Billing & Payments","dependsOn":"FG-09.01","description":"Shows each shop's available credit line, current utilization, and payment terms within the portal. Replaces credit inquiry phone calls with self-serve visibility, and gives shops the financial transparency needed to plan purchases without guessing at their available credit.","kpis":"Credit page engagement rate; Reduction in credit inquiry calls","valueAreasActive":["Customer Experience","Financial Visibility"]},{"id":"FG-06.06","title":"Spend and margin reporting tools","phase":3.5,"gid":"FG-06","groupName":"Billing & Payments","dependsOn":"FG-09.01","description":"Provides franchise owners and internal teams with reporting on customer spend, product mix, and margin by account. Enables profitability analysis that currently doesn't exist — identifying which customers are high-margin vs. high-hassle and informing sales and retention decisions.","kpis":"Report generation rate; Adoption among franchise owners","valueAreasActive":["Operational Efficiency","Financial Visibility"]},{"id":"FG-07.01","title":"Targeted digital promotions engine","phase":2.5,"gid":"FG-07","groupName":"Marketing & Promotions Engine","dependsOn":"","description":"A digital promotions engine that delivers targeted offers to logged-in shops based on purchase history, product mix, and behavior. The digital replacement for the physical coupon model — Lola Fiore's vision of being able to surface a $40 off coupon to the right shop at the right moment, rather than mailing it to a drawer.","kpis":"Promotion open rate; Redemption rate; AOV lift from promotions; Category cross-sell rate","valueAreasActive":["Conversion & Acquisition","Customer Experience","Marketing Enablement"]},{"id":"FG-07.02","title":"FSR scan-to-enroll tool","phase":2.0,"gid":"FG-07","groupName":"Marketing & Promotions Engine","dependsOn":"FG-08.03, FG-09.04","description":"A mobile tool enabling FSRs to capture shop contact information and trigger account creation or enrollment during an in-person visit via QR code scan. Jim Hastie described 1 million FSR visits per year with no digital capture mechanism — this converts a fraction of those visits into active digital accounts.","kpis":"QR scan-to-enrollment conversion rate; New accounts enrolled per FSR visit","valueAreasActive":["Conversion & Acquisition","Operational Efficiency","Marketing Enablement"]},{"id":"FG-07.03","title":"QR codes on FSR marketing materials","phase":2.0,"gid":"FG-07","groupName":"Marketing & Promotions Engine","dependsOn":"","description":"QR codes embedded in FSR leave-behind materials — flyers, coupons, mailers — linking to landing pages, product information, or account creation flows. Creates a measurable digital bridge between the physical FSR visit and the website, replacing materials that currently have no follow-through.","kpis":"QR scan volume; Account creation from FSR QR touchpoint","valueAreasActive":["Conversion & Acquisition","Marketing Enablement"]},{"id":"FG-07.04","title":"Digital asset management platform","phase":3.0,"gid":"FG-07","groupName":"Marketing & Promotions Engine","dependsOn":"","description":"A centralized platform for creating, storing, and distributing marketing assets to 1800R's franchise network. Addresses the structural bottleneck of a two-person marketing team serving 200 locations — gives franchisees access to brand-safe materials without routing every request through corporate.","kpis":"Asset utilization rate by franchisees; Time to publish new marketing materials","valueAreasActive":["Operational Efficiency","Marketing Enablement"]},{"id":"FG-07.05","title":"QR codes on product packaging","phase":3.5,"gid":"FG-07","groupName":"Marketing & Promotions Engine","dependsOn":"","description":"QR codes on 1800R's product packaging — radiators, condensers, compressors — linking to installation guides, tech tips, and product-specific content. Jim Hastie described 3 million units shipped annually with no digital touchpoint. This converts every box into a direct-to-technician education channel.","kpis":"QR scan volume from packaging; Content engagement from packaging scans","valueAreasActive":["Conversion & Acquisition","Marketing Enablement"]},{"id":"FG-07.06","title":"Franchise self-serve marketing portal","phase":2.5,"gid":"FG-07","groupName":"Marketing & Promotions Engine","dependsOn":"FG-07.04, FG-09.04","description":"A self-serve portal allowing franchise owners to access, customize within guardrails, and deploy marketing materials for their local market. Gives the 80 franchise owners a controlled middle ground between using only what corporate sends and improvising independently.","kpis":"Franchise portal adoption rate; Reduction in corporate marketing requests from franchisees","valueAreasActive":["Operational Efficiency","Marketing Enablement"]},{"id":"FG-08.01","title":"Knowledge base and concierge capture system","phase":3.5,"gid":"FG-08","groupName":"Internal Tools & Intelligence","dependsOn":"","description":"A structured knowledge base capturing the institutional expertise of 1800R's phone concierge team — fitment edge cases, failure patterns, disambiguation logic, install gotchas. Preserves knowledge that currently exists only in the heads of a small team, and feeds the AI recommendation and search authority features.","kpis":"Knowledge base article count; Search hit rate vs. escalation to human; Concierge call deflection rate","valueAreasActive":["Operational Efficiency","Technical Foundation","Search & Discovery Authority"]},{"id":"FG-08.02","title":"Account health dashboard for internal teams","phase":2.0,"gid":"FG-08","groupName":"Internal Tools & Intelligence","dependsOn":"","description":"An internal dashboard giving sales reps and account managers visibility into account health — purchase frequency trends, churn risk signals, rep coverage gaps, and intervention history. Enables proactive retention rather than discovering a shop has drifted to a competitor at the next FSR visit.","kpis":"Rep usage rate of dashboard; Accounts flagged for churn risk; Intervention success rate","valueAreasActive":["Operational Efficiency","Financial Visibility"]},{"id":"FG-08.03","title":"Session and user-level analytics implementation","phase":3.0,"gid":"FG-08","groupName":"Internal Tools & Intelligence","dependsOn":"","description":"Implementation of session-level and user-level analytics tracking across the platform. Currently, 1800R only logs stored procedure calls — there is no visibility into how users navigate, where they abandon, or what they re-lookup. This is the foundational data layer for personalization, optimization, and business intelligence.","kpis":"% of sessions with user-level attribution; Funnel visibility completeness; Data quality score","valueAreasActive":["Operational Efficiency","Technical Foundation"]},{"id":"FG-08.04","title":"Rep continuity record","phase":3.0,"gid":"FG-08","groupName":"Internal Tools & Intelligence","dependsOn":"FG-09.02","description":"A structured record of each shop's relationship history with their assigned FSR — communication log, preferences, purchase context, and account notes — that transfers when a rep changes territory. Prevents institutional knowledge walking out the door when an FSR leaves.","kpis":"Rep handoff incidents; Account retention rate during rep transitions","valueAreasActive":["Customer Experience","Operational Efficiency"]},{"id":"FG-09.01","title":"GeneXus to modern accounting platform migration","phase":2.0,"gid":"FG-09","groupName":"Platform & Infrastructure","dependsOn":"FG-09.03","description":"Migration of 1800R's legacy accounting functions from GeneXus to a modern platform — likely Oracle, which is already in use at the Driven Brands parent level. The single largest technical blocker for the Billing & Payments feature group. Client-owned dependency; Elevate's role is to define the API requirements the new system must expose.","kpis":"Migration completion; AR processing time reduction; Error rate in payment allocation","valueAreasActive":["Operational Efficiency","Financial Visibility","Technical Foundation"]},{"id":"FG-09.02","title":"Adapt DEWE/DUWA for stored procedure API","phase":1.0,"gid":"FG-09","groupName":"Platform & Infrastructure","dependsOn":"","description":"Integration work adapting 1800R's existing .NET stored procedure layer to communicate cleanly with the DEWE frontend and DUWA middleware. Rather than building a new API from scratch, this scopes the translation layer needed to make existing backend logic consumable by the new platform architecture.","kpis":"Page load time; API response time; Frontend deployment frequency; Developer velocity","valueAreasActive":["Technical Foundation"]},{"id":"FG-09.03","title":"Migration to DEWE","phase":1.0,"gid":"FG-09","groupName":"Platform & Infrastructure","dependsOn":"","description":"Migration of the 1800R website onto the Driven Enterprise Web Engine (DEWE) — the shared Next.js/Vercel platform on which all Driven Brands properties are being built. The foundational Phase 1 infrastructure decision — everything else in this feature set is built on this platform.","kpis":"Frontend deployment frequency; Module reuse rate from shared library; Time to market for new features vs. pre-migration baseline; Core Web Vitals scores","valueAreasActive":[]},{"id":"FG-09.04","title":"DUWA integration for 1800R","phase":1.0,"gid":"FG-09","groupName":"Platform & Infrastructure","dependsOn":"FG-09.03","description":"Integration of 1800R's shop data, inventory, pricing, and coupon data into DUWA — the Driven Brands middleware and data CMS. Enables marketing and ops teams to manage ephemeral data overrides, exposes structured endpoints for the DEWE frontend, and connects 1800R to the broader Driven Brands data ecosystem including Zeta CDP.","kpis":"Data freshness latency; Marketing team adoption of ephemeral edit tools; Active DUWA endpoints consumed by frontend and third-party tools; Zeta CDP data match rate","valueAreasActive":[]}]}</script>
+  <script>
+    const DATA = JSON.parse(document.getElementById("data").textContent);
+    var VALUE_AREA_LABELS = DATA.valueAreaLabels || [
+      "Conversion & Acquisition",
+      "Customer Experience",
+      "Operational Efficiency",
+      "Financial Visibility",
+      "Technical Foundation",
+      "Marketing Enablement",
+      "Search & Discovery Authority",
+    ];
+    document.getElementById("t-title").textContent = DATA.title;
+    document.getElementById("t-sub").textContent = DATA.subtitle;
+    document.title = DATA.title;
+
+    (function initSheetMeta() {
+      var exportUrl = DATA.sheetExportUrl || "";
+      var editUrl = DATA.sheetEditUrl || "";
+      var timeEl = document.getElementById("sheet-last-updated");
+      var linkEl = document.getElementById("sheet-open-link");
+      var liveEl = document.getElementById("sheet-live-status");
+      var btn = document.getElementById("sheet-refresh-btn");
+      var fileHintEl = document.getElementById("sheet-file-hint");
+      var isFileProtocol =
+        typeof location !== "undefined" && location.protocol === "file:";
+      if (linkEl && editUrl) linkEl.href = editUrl;
+
+      if (isFileProtocol && btn) {
+        btn.disabled = true;
+        btn.setAttribute("aria-disabled", "true");
+        btn.title =
+          "Unavailable for file:// pages: the browser blocks fetching the sheet CSV. Use Open in Google Sheets, or serve this HTML over http://localhost.";
+        if (fileHintEl) fileHintEl.hidden = false;
+      }
+
+      function parseLastUpdatedCell(cell) {
+        var s = (cell || "").trim();
+        if (!s) return null;
+        if (/^\d+$/.test(s)) {
+          var n = parseInt(s, 10);
+          if (n > 1e12) n = Math.floor(n / 1000);
+          return n;
+        }
+        var parsed = Date.parse(s);
+        if (!isNaN(parsed)) return Math.floor(parsed / 1000);
+        return null;
+      }
+
+      var embeddedUnix = null;
+      if (typeof DATA.sheetLastUpdatedUnix === "number" && !isNaN(DATA.sheetLastUpdatedUnix)) {
+        embeddedUnix = DATA.sheetLastUpdatedUnix;
+      } else if (DATA.sheetLastUpdated) {
+        embeddedUnix = parseLastUpdatedCell(String(DATA.sheetLastUpdated));
+      }
+
+      function formatUnixForDisplay(ts) {
+        if (ts == null) return "—";
+        var n = Number(ts);
+        if (n > 1e12) n = Math.floor(n / 1000);
+        return (
+          new Date(n * 1000).toLocaleString("en-US", {
+            timeZone: "America/New_York",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          }) + " ET"
+        );
+      }
+
+      if (timeEl) {
+        if (embeddedUnix != null) {
+          timeEl.textContent = formatUnixForDisplay(embeddedUnix);
+          timeEl.setAttribute("datetime", new Date(embeddedUnix * 1000).toISOString());
+        } else {
+          var legacy = (DATA.sheetLastUpdated || "").trim();
+          timeEl.textContent = legacy || "—";
+          if (legacy) timeEl.setAttribute("datetime", legacy);
+        }
+      }
+
+      function parseCsvLine(line) {
+        var out = [];
+        var cur = "";
+        var inQ = false;
+        for (var i = 0; i < line.length; i++) {
+          var c = line[i];
+          if (c === '"') {
+            inQ = !inQ;
+            continue;
+          }
+          if (!inQ && c === ",") {
+            out.push(cur);
+            cur = "";
+            continue;
+          }
+          cur += c;
+        }
+        out.push(cur);
+        return out;
+      }
+
+      function extractFg01LastUpdated(csvText) {
+        var lines = csvText.split(/\r?\n/);
+        if (!lines.length) return "";
+        var header = parseCsvLine(lines[0]);
+        var idx = -1;
+        for (var j = 0; j < header.length; j++) {
+          if (header[j].trim() === "Last Updated") idx = j;
+        }
+        if (idx < 0) return "";
+        var L;
+        var fromFg01 = "";
+        for (L = 1; L < lines.length; L++) {
+          if (!lines[L].trim()) continue;
+          var row = parseCsvLine(lines[L]);
+          while (row.length < header.length) row.push("");
+          var fid = (row[0] || "").trim();
+          if (fid === "FG-01") {
+            fromFg01 = (row[idx] || "").trim();
+            break;
+          }
+        }
+        if (fromFg01) return fromFg01;
+        for (L = 1; L < lines.length; L++) {
+          if (!lines[L].trim()) continue;
+          var row2 = parseCsvLine(lines[L]);
+          while (row2.length < header.length) row2.push("");
+          var v = (row2[idx] || "").trim();
+          if (v) return v;
+        }
+        return "";
+      }
+
+      if (btn && exportUrl && !isFileProtocol) {
+        btn.addEventListener("click", function () {
+          liveEl.hidden = false;
+          liveEl.className = "sheet-meta__live";
+          liveEl.textContent = "Checking…";
+          btn.disabled = true;
+          fetch(exportUrl, { mode: "cors", cache: "no-store" })
+            .then(function (res) {
+              if (!res.ok) throw new Error("HTTP " + res.status);
+              return res.text();
+            })
+            .then(function (text) {
+              var liveRaw = extractFg01LastUpdated(text);
+              var liveUnix = parseLastUpdatedCell(liveRaw);
+              if (liveUnix == null) {
+                liveEl.textContent =
+                  "Live sheet loaded, but “Last Updated” on FG-01 wasn’t a recognizable timestamp. Use Open in Google Sheets and check that cell.";
+                liveEl.className = "sheet-meta__live sheet-meta__live--warn";
+                return;
+              }
+              if (embeddedUnix != null && liveUnix === embeddedUnix) {
+                liveEl.textContent = "Matches this file (embedded snapshot).";
+                liveEl.className = "sheet-meta__live";
+              } else if (embeddedUnix != null && liveUnix > embeddedUnix) {
+                liveEl.textContent =
+                  "Live sheet FG-01 “Last Updated” is " +
+                  formatUnixForDisplay(liveUnix) +
+                  " — newer than this file (" +
+                  formatUnixForDisplay(embeddedUnix) +
+                  "). Ask your team for a refreshed HTML copy, or compare in Google Sheets.";
+                liveEl.className = "sheet-meta__live sheet-meta__live--warn";
+              } else if (embeddedUnix != null && liveUnix < embeddedUnix) {
+                liveEl.textContent =
+                  "Live FG-01 timestamp (" +
+                  formatUnixForDisplay(liveUnix) +
+                  ") is older than this file’s snapshot (" +
+                  formatUnixForDisplay(embeddedUnix) +
+                  "). This file may include edits not yet reflected in the sheet export, or the sheet cell was changed.";
+                liveEl.className = "sheet-meta__live sheet-meta__live--warn";
+              } else {
+                liveEl.textContent =
+                  "Live FG-01 timestamp: " +
+                  formatUnixForDisplay(liveUnix) +
+                  (embeddedUnix != null
+                    ? " (embedded snapshot: " + formatUnixForDisplay(embeddedUnix) + ")."
+                    : ".") +
+                  " If these differ, refresh the HTML from the sheet.";
+                liveEl.className = "sheet-meta__live sheet-meta__live--warn";
+              }
+            })
+            .catch(function () {
+              liveEl.textContent =
+                "Couldn’t load the CSV (network, blocked request, or browser policy). The date above is still the embedded snapshot — use Open in Google Sheets for the live FG-01 cell.";
+              liveEl.className = "sheet-meta__live sheet-meta__live--warn";
+            })
+            .finally(function () {
+              btn.disabled = false;
+            });
+        });
+      }
+    })();
+
+    /**
+     * Elevate Digital — data viz palette (no red/pink/brown).
+     * Assignment is permuted so consecutive FG blocks in the matrix (FG-01→FG-02→…)
+     * never pair Electric + Binary blues (same hue family, hard to tell apart).
+     */
+    /** barText: white on saturated/dark fills; Elevate navy on light fills (WCAG contrast). */
+    function brandColorsForGid(gid) {
+      var map = {
+        "FG-01": { base: "#00aeef", light: "#4dc8f5", barText: "#ffffff" },
+        "FG-02": { base: "#ff9600", light: "#ffb84d", barText: "#192036" },
+        "FG-03": { base: "#0f75bd", light: "#3a9dd4", barText: "#ffffff" },
+        "FG-04": { base: "#00fe7c", light: "#5fff9e", barText: "#192036" },
+        "FG-05": { base: "#723aca", light: "#9b6ee0", barText: "#ffffff" },
+        "FG-06": { base: "#ffea37", light: "#fff176", barText: "#192036" },
+        "FG-07": { base: "#33d4ff", light: "#7fe8ff", barText: "#192036" },
+        "FG-08": { base: "#8b5cf6", light: "#c4b5fd", barText: "#192036" },
+        "FG-09": { base: "#156fa5", light: "#4a9fd4", barText: "#ffffff" },
+      };
+      var c = map[gid] || { base: "#00aeef", light: "#4dc8f5", barText: "#ffffff" };
+      return {
+        color: c.base,
+        colorLight: c.light,
+        barText: c.barText,
+      };
+    }
+
+    const leg = document.getElementById("legend");
+    (DATA.groupLegend || []).forEach(function (g) {
+      var pal = brandColorsForGid(g.id);
+      var item = document.createElement("div");
+      item.className = "legend-item";
+      item.setAttribute("data-gid", g.id);
+      var sw = document.createElement("span");
+      sw.className = "legend-swatch";
+      sw.style.background = "linear-gradient(180deg, " + pal.colorLight + ", " + pal.color + ")";
+      sw.title = g.name;
+      item.appendChild(sw);
+      var wrap = document.createElement("div");
+      wrap.innerHTML =
+        "<code>" + escapeHtml(g.id) + "</code>" +
+        '<span class="legend-name">' + escapeHtml(g.name) + "</span>";
+      item.appendChild(wrap);
+      leg.appendChild(item);
+    });
+
+    const ticks = DATA.axisTicks;
+    var numCols = DATA.phaseColumnCount || 6;
+    var phaseStart = 1;
+    var phaseStep = 0.5;
+
+    function columnIndexForPhase(p) {
+      var idx = (p - phaseStart) / phaseStep;
+      if (Math.abs(idx - Math.round(idx)) > 1e-5) return -1;
+      idx = Math.round(idx);
+      if (idx < 0 || idx >= numCols) return -1;
+      return idx;
+    }
+
+    function formatPhase(p) {
+      return Number(p).toFixed(1);
+    }
+
+    const pills = document.getElementById("axis-pills");
+    ticks.forEach(function (t) {
+      var el = document.createElement("div");
+      el.className = "axis-pill";
+      el.textContent = Number(t).toFixed(1);
+      pills.appendChild(el);
+    });
+
+    var gidRank = {};
+    (DATA.groupLegend || []).forEach(function (g, i) {
+      gidRank[g.id] = i;
+    });
+
+    function rankGid(gid) {
+      return gidRank[gid] != null ? gidRank[gid] : 999;
+    }
+
+    function parseFeatureId(id) {
+      var m = String(id).match(/^FG-(\d+)\.(\d+)$/);
+      if (m) return { group: +m[1], num: +m[2] };
+      return { group: 999, num: 999 };
+    }
+
+    function compareFeatureId(a, b) {
+      var ka = parseFeatureId(a);
+      var kb = parseFeatureId(b);
+      if (ka.group !== kb.group) return ka.group - kb.group;
+      return ka.num - kb.num;
+    }
+
+    function sortFeaturesByGroup(features) {
+      var out = features.slice();
+      out.sort(function (a, b) {
+        var ra = rankGid(a.gid);
+        var rb = rankGid(b.gid);
+        if (ra !== rb) return ra - rb;
+        return compareFeatureId(a.id, b.id);
+      });
+      return out;
+    }
+
+    function sortFeaturesByPhase(features) {
+      var out = features.slice();
+      out.sort(function (a, b) {
+        var dp = Number(a.phase) - Number(b.phase);
+        if (Math.abs(dp) > 1e-9) return dp;
+        var ra = rankGid(a.gid);
+        var rb = rankGid(b.gid);
+        if (ra !== rb) return ra - rb;
+        return compareFeatureId(a.id, b.id);
+      });
+      return out;
+    }
+
+    var sortHints = {
+      group:
+        "Feature groups in catalog order (FG-01 … FG-09), then feature IDs within each group — best for scanning a value stream end to end.",
+      phase:
+        "Earliest phase (1.0) at the top through 3.5 — see what ships in each half-step across all groups in one pass.",
+    };
+
+    function setLegendHighlightForGid(gid, on) {
+      var id = gid || "";
+      leg.querySelectorAll(".legend-item").forEach(function (el) {
+        if (el.getAttribute("data-gid") === id) {
+          el.classList.toggle("legend-item--highlight", on);
+        }
+      });
+    }
+
+    var flyoutRoot = document.getElementById("feature-flyout");
+    var flyoutDetail = document.getElementById("flyout-detail");
+    var flyoutClose = document.getElementById("flyout-close");
+    var flyoutAccent = document.getElementById("flyout-accent");
+    var flyoutGroupSwatch = document.getElementById("flyout-group-swatch");
+    var selectedRowEl = null;
+
+    function parseKpis(s) {
+      if (!s || !String(s).trim()) return [];
+      return String(s)
+        .split(";")
+        .map(function (x) {
+          return x.trim();
+        })
+        .filter(Boolean);
+    }
+
+    function parseDependsOn(s) {
+      if (!s || !String(s).trim()) return [];
+      return String(s)
+        .split(",")
+        .map(function (x) {
+          return x.trim();
+        })
+        .filter(Boolean);
+    }
+
+    function clearFlyout() {
+      if (selectedRowEl) {
+        selectedRowEl.classList.remove("row--selected");
+        selectedRowEl = null;
+      }
+      flyoutRoot.classList.add("feature-flyout--empty");
+      flyoutDetail.hidden = true;
+    }
+
+    function showFlyout(f, rowEl) {
+      if (!f) {
+        clearFlyout();
+        return;
+      }
+      if (selectedRowEl) selectedRowEl.classList.remove("row--selected");
+      selectedRowEl = rowEl || null;
+      if (selectedRowEl) selectedRowEl.classList.add("row--selected");
+
+      var pal = brandColorsForGid(f.gid);
+      flyoutAccent.style.background =
+        "linear-gradient(90deg, " + pal.colorLight + ", " + pal.color + ")";
+      flyoutGroupSwatch.style.background =
+        "linear-gradient(180deg, " + pal.colorLight + ", " + pal.color + ")";
+
+      document.getElementById("flyout-id").textContent = f.id;
+      document.getElementById("flyout-phase").textContent = "Phase " + formatPhase(f.phase);
+      document.getElementById("flyout-title").textContent = f.title;
+      document.getElementById("flyout-group").textContent = f.groupName || "";
+
+      var depSection = document.getElementById("flyout-depends-section");
+      var depEl = document.getElementById("flyout-depends");
+      var deps = parseDependsOn(f.dependsOn != null ? f.dependsOn : "");
+      depEl.innerHTML = "";
+      if (deps.length === 0) {
+        depSection.hidden = true;
+      } else {
+        depSection.hidden = false;
+        deps.forEach(function (dep) {
+          var chip = document.createElement("span");
+          chip.className = "feature-flyout__dep-chip";
+          var code = document.createElement("code");
+          code.textContent = dep;
+          chip.appendChild(code);
+          depEl.appendChild(chip);
+        });
+      }
+
+      document.getElementById("flyout-desc").textContent = f.description || "";
+
+      var ul = document.getElementById("flyout-kpis");
+      ul.innerHTML = "";
+      parseKpis(f.kpis).forEach(function (line) {
+        var li = document.createElement("li");
+        li.textContent = line;
+        ul.appendChild(li);
+      });
+
+      var vaUl = document.getElementById("flyout-value-areas");
+      vaUl.innerHTML = "";
+      var activeSet = {};
+      (f.valueAreasActive || []).forEach(function (lab) {
+        activeSet[lab] = true;
+      });
+      VALUE_AREA_LABELS.forEach(function (label) {
+        var on = !!activeSet[label];
+        var li = document.createElement("li");
+        li.className =
+          "feature-flyout__value-area " +
+          (on ? "feature-flyout__value-area--on" : "feature-flyout__value-area--off");
+        var marker = document.createElement("span");
+        marker.className = "feature-flyout__va-marker";
+        marker.setAttribute("aria-hidden", "true");
+        var span = document.createElement("span");
+        span.className = "feature-flyout__va-label";
+        span.textContent = label;
+        li.appendChild(marker);
+        li.appendChild(span);
+        vaUl.appendChild(li);
+      });
+
+      flyoutRoot.classList.remove("feature-flyout--empty");
+      flyoutDetail.hidden = false;
+    }
+
+    flyoutClose.addEventListener("click", function () {
+      clearFlyout();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !flyoutRoot.classList.contains("feature-flyout--empty")) {
+        clearFlyout();
+      }
+    });
+
+    function buildTimelineRows(host, features) {
+      features.forEach(function (f) {
+        var pal = brandColorsForGid(f.gid);
+        var col = columnIndexForPhase(f.phase);
+        var colW = 100 / numCols;
+        var leftPct = col >= 0 ? col * colW : 0;
+        var widthPct = col >= 0 ? colW : 0;
+
+        var row = document.createElement("div");
+        row.className = "row";
+        row.setAttribute("data-gid", f.gid || "");
+        row.setAttribute("data-feature-id", f.id);
+        row.setAttribute("role", "button");
+        row.setAttribute("tabindex", "0");
+        row.setAttribute(
+          "aria-label",
+          f.title + ", " + f.id + ", phase " + formatPhase(f.phase) + ". Open detail panel."
+        );
+
+        var label = document.createElement("div");
+        label.className = "row-label";
+        var dot = document.createElement("span");
+        dot.className = "dot";
+        dot.style.background = pal.color;
+        var text = document.createElement("div");
+        text.className = "row-label-main";
+        text.innerHTML =
+          "<strong>" +
+          escapeHtml(f.title) +
+          '</strong><div class="id-row"><span class="id">' +
+          escapeHtml(f.id) +
+          '</span><span class="gid"><code>' +
+          escapeHtml(f.gid || "") +
+          "</code></span></div>";
+        label.appendChild(dot);
+        label.appendChild(text);
+
+        var tw = document.createElement("div");
+        tw.className = "track-wrap";
+        var grid = document.createElement("div");
+        grid.className = "track-grid";
+        var inner = document.createElement("div");
+        inner.className = "track-inner";
+        var bar = document.createElement("div");
+        bar.className = "bar";
+        if (pal.barText === "#192036") bar.classList.add("bar--darktext");
+        bar.style.left = leftPct + "%";
+        bar.style.width = Math.max(0, widthPct) + "%";
+        bar.style.background =
+          "linear-gradient(180deg, " + pal.colorLight + ", " + pal.color + ")";
+        bar.style.color = pal.barText;
+        bar.textContent = f.gid || "";
+        bar.setAttribute(
+          "aria-label",
+          f.title + ", " + f.id + ", phase " + formatPhase(f.phase)
+        );
+
+        inner.appendChild(grid);
+        inner.appendChild(bar);
+        tw.appendChild(inner);
+        row.appendChild(label);
+        row.appendChild(tw);
+        row.addEventListener("mouseenter", function () {
+          row.classList.add("row--hover-key");
+          setLegendHighlightForGid(f.gid, true);
+        });
+        row.addEventListener("mouseleave", function () {
+          row.classList.remove("row--hover-key");
+          setLegendHighlightForGid(f.gid, false);
+        });
+        row.addEventListener("click", function () {
+          showFlyout(f, row);
+        });
+        row.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            showFlyout(f, row);
+          }
+        });
+        host.appendChild(row);
+      });
+    }
+
+    var currentSort = "group";
+    var timelineHost = document.getElementById("timeline");
+    var sortHintEl = document.getElementById("sort-hint");
+    var btnGroup = document.getElementById("sort-group");
+    var btnPhase = document.getElementById("sort-phase");
+
+    /**
+     * URL query presets the sort toggle: ?sort=phase or ?sort=group
+     * (alias: sortBy). Case-insensitive. Short: p / g.
+     * Example: feature-planning-timeline-infographic.html?sort=phase
+     */
+    function getSortModeFromQuery() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var raw = params.get("sort") || params.get("sortBy") || "";
+        raw = String(raw).trim().toLowerCase();
+        if (raw === "phase" || raw === "p") return "phase";
+        if (raw === "group" || raw === "g" || raw === "fg") return "group";
+      } catch (e) {}
+      return null;
+    }
+
+    function syncSortToUrl(mode) {
+      try {
+        var url = new URL(window.location.href);
+        url.searchParams.set("sort", mode);
+        history.replaceState({}, "", url.toString());
+      } catch (e) {}
+    }
+
+    function setSortMode(mode, options) {
+      options = options || {};
+      currentSort = mode;
+      btnGroup.setAttribute("aria-pressed", mode === "group" ? "true" : "false");
+      btnPhase.setAttribute("aria-pressed", mode === "phase" ? "true" : "false");
+      sortHintEl.textContent = sortHints[mode] || "";
+      var list =
+        mode === "phase"
+          ? sortFeaturesByPhase(DATA.features)
+          : sortFeaturesByGroup(DATA.features);
+      timelineHost.innerHTML = "";
+      clearFlyout();
+      buildTimelineRows(timelineHost, list);
+      if (options.syncUrl) syncSortToUrl(mode);
+    }
+
+    btnGroup.addEventListener("click", function () {
+      setSortMode("group", { syncUrl: true });
+    });
+    btnPhase.addEventListener("click", function () {
+      setSortMode("phase", { syncUrl: true });
+    });
+
+    setSortMode(getSortModeFromQuery() || "group", { syncUrl: false });
+
+    function escapeHtml(s) {
+      var d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+  </script>
+</body>
+</html>
