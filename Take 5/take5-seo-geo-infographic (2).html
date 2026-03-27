@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Take5.com Rebuild — SEO / AEO / GEO (detailed)</title>
+<link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-weight: 400;
+  background: #192036;
+  color: #ffffff;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 28px 48px;
+}
+
+.page {
+  width: 100%;
+  position: relative;
+  background-color: #192036;
+  padding: 44px 8px 48px;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 340px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 110% 85% at 50% -35%, rgba(0, 174, 239, 0.38), transparent 58%),
+    radial-gradient(ellipse 75% 55% at 92% 8%, rgba(0, 254, 124, 0.14), transparent 52%),
+    radial-gradient(ellipse 65% 50% at 8% 18%, rgba(120, 185, 255, 0.11), transparent 48%),
+    linear-gradient(180deg, rgba(8, 22, 48, 0.55) 0%, rgba(25, 32, 54, 0) 100%);
+}
+
+.page::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 320px;
+  z-index: 0;
+  pointer-events: none;
+  background: url('../shared/black-lines-1.png') center top / cover no-repeat;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+}
+
+.page > * { position: relative; z-index: 1; }
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(0,254,124,0.22);
+  gap: 20px;
+}
+.header-left { display: flex; flex-direction: column; gap: 10px; max-width: 720px; }
+
+.eyebrow {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: #00aeef;
+  text-transform: uppercase;
+}
+.headline {
+  font-family: 'Sansation', 'Titillium Web', sans-serif;
+  font-size: clamp(48pt, 4vw + 28pt, 64pt);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.headline em { color: #00fe7c; font-style: normal; font-family: inherit; font-weight: 700; }
+.subhead {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: clamp(16pt, 1.5vw, 18pt);
+  font-weight: 600;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.45;
+  margin-top: 8px;
+  max-width: 38em;
+}
+.logo-wrap {
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.logo-wrap img {
+  height: 132px;
+  width: auto;
+  display: block;
+  opacity: 1;
+  margin-top: 2px;
+}
+
+.col-headers {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) 1fr 1fr;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.col-label {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00fe7c;
+  padding: 0 12px;
+}
+.col-label:first-child { padding-left: 4px; }
+
+.categories { display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+.category {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(0,0,0,0.28);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.cat-num {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #00aeef;
+  color: #fff;
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 12pt;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-family: 'Sansation', 'Titillium Web', sans-serif;
+  font-size: clamp(20pt, 1.4vw + 12pt, 28pt);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  flex: 1;
+  line-height: 1.2;
+  text-transform: none;
+}
+.cat-badge {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.badge-high { color: #00fe7c; border-color: rgba(0,254,124,0.5); background: rgba(0,254,124,0.07); }
+.badge-medium { color: #00aeef; border-color: rgba(0,174,239,0.5); background: rgba(0,174,239,0.07); }
+
+.rows { display: flex; flex-direction: column; }
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) 1fr 1fr;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.row:last-child { border-bottom: none; }
+
+.cell {
+  padding: 12px 12px 14px;
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.55;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.cell:last-child { border-right: none; }
+.cell:first-child { padding-left: 16px; }
+
+.cell-label {
+  color: rgba(255,255,255,0.62);
+  font-weight: 600;
+  font-size: 11pt;
+}
+.cell-from { color: rgba(255,255,255,0.65); }
+.cell-to { color: #e8e8e8; }
+.cell-to strong { color: #00fe7c; font-weight: 600; font-family: 'Titillium Web', 'Arial', sans-serif; }
+.cell-to em { color: #00aeef; font-style: normal; font-weight: 600; }
+
+.dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+  flex-shrink: 0;
+  position: relative;
+  top: -1px;
+}
+.dot-high { background: #00fe7c; }
+.dot-med { background: #00aeef; }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-wordmark img { height: 88px; width: auto; opacity: 0.88; display: block; }
+.footer-note {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 9pt;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.03em;
+  text-align: right;
+  line-height: 1.65;
+  max-width: min(520px, 100%);
+}
+.footer-note span { color: #00aeef; }
+
+@media (max-width: 900px) {
+  body { padding: 0 18px 40px; }
+  .page { padding: 32px 12px 40px; }
+  .header { flex-direction: column; }
+  .logo-wrap { margin-left: 0; }
+  .logo-wrap img { height: 120px; }
+  .cat-title { font-size: clamp(18pt, 3.5vw, 24pt); }
+  .page { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .matrix-scroll { min-width: 680px; }
+}
+
+@media (min-width: 901px) {
+  .matrix-scroll { min-width: 0; }
+}
+
+/* ── Print / Save as PDF (still turn ON “Background graphics” in the print dialog) ── */
+@media print {
+  html, body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: #192036 !important;
+  }
+  @page {
+    size: letter;
+    margin: 10mm 8mm 12mm;
+  }
+  body {
+    max-width: none !important;
+    padding: 0 8px 16px !important;
+  }
+  .page {
+    padding: 16px 4px 24px !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+  }
+  .matrix-scroll {
+    overflow: visible !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  .page::before {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .page::after {
+    mix-blend-mode: normal !important;
+    opacity: 0.14 !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .header { break-after: avoid; }
+  .cat-header { break-after: avoid; }
+  .row {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .footer {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .logo-wrap img { max-height: 1.1in !important; height: auto !important; width: auto !important; }
+  .footer-wordmark img { max-height: 0.75in !important; height: auto !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">Take5.com Rebuild · Driven Brands</div>
+      <div class="headline">Strengthening discovery &amp; citation in search &amp; AI:<br><em>SEO, AEO &amp; GEO</em></div>
+      <div class="subhead">Layered structural improvements so the work you’re already doing in SEO, content, and local can compound -> earning deeper discovery and more trusted citations over time.</div>
+    </div>
+    <div class="logo-wrap">
+      <img src="../shared/elevate-brand-refresh-vert-light-transparent.png" width="200" height="200" alt="Elevate Digital">
+    </div>
+  </div>
+
+
+  <div class="matrix-scroll">
+<div class="col-headers">
+    <div class="col-label">Area</div>
+    <div class="col-label">Current state</div>
+    <div class="col-label">After the rebuild</div>
+  </div>
+
+  <div class="categories">
+
+    <!-- CAT 1 -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">1</div>
+        <div class="cat-title">Google and AI can't read the site properly</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Structured data (Schema)</div>
+          <div class="cell cell-from">Basic, inconsistent markup — search engines and AI must guess what the site is about</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Unified Schema.org entity graph: every shop, service, and offer machine-readable with a <strong>single source of truth</strong></div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">AI site feed</div>
+          <div class="cell cell-from">No machine-readable index of 900+ locations — AI systems can't efficiently ingest Take5 inventory</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>Canonical AI feed</strong> publishes all shops, services &amp; offers — purpose-built for ChatGPT, Perplexity &amp; Gemini</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Dynamic content visibility</div>
+          <div class="cell cell-from">Hours, services &amp; offers rendered client-side via JavaScript — AI crawlers miss them entirely</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Critical content <strong>server-side rendered</strong>; AI crawler access governed via <strong>llms.txt</strong></div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Page structure</div>
+          <div class="cell cell-from">Inconsistent heading hierarchy and landmark usage across templates</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Standardized H1–H3, ARIA landmarks, and <strong>answer-ready content structures</strong> sitewide</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAT 2 -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">2</div>
+        <div class="cat-title">Our location data is wrong or inconsistent</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">NAP &amp; Google Business Profiles</div>
+          <div class="cell cell-from">Name, address, phone &amp; hours maintained independently — discrepancies are common and slow to correct</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>Single source of truth</strong> for all shop data; GBP synchronized automatically with auditable governance</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Emergency corrections</div>
+          <div class="cell cell-from">No fast-correction mechanism — customers see wrong hours or closed shops until source systems catch up</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Controlled <strong>override system</strong> with expiry — correct bad data within minutes, not days</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Location &amp; shop pages</div>
+          <div class="cell cell-from">Templated copy, weak local signals — "explore Dallas after your oil change" as a local SEO strategy</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Locally-differentiated content, structured service listings, and <strong>proximity signals</strong> built for "near me" intent</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Wait time <em>(Phase 2/3)</em></div>
+          <div class="cell cell-from">No wait time data on site or in local listings</div>
+          <div class="cell cell-to"><span class="dot dot-med"></span>Historical estimate (Ph2) → <strong>real-time via Solink</strong> (Ph3) — a local signal no competitor currently surfaces</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAT 3 -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">3</div>
+        <div class="cat-title">Our content doesn't answer the questions people are asking</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Service pages &amp; FAQ</div>
+          <div class="cell cell-from">Short marketing paragraphs; no FAQ schema; no structured breakdown of what's included or how long it takes</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Services Hub + <strong>Fast Answers FAQ module</strong> + What to Expect module — structured and built to be cited by AI</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Car care knowledge</div>
+          <div class="cell cell-from">Blog-style content not structured for authority or long-tail search and AI capture</div>
+          <div class="cell cell-to"><span class="dot dot-med"></span><strong>Car Care Knowledge Hub</strong> — evergreen, editorially governed, written for search intent and AI extraction</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Content guidelines</div>
+          <div class="cell cell-from">"Always say 3,000 miles." No prices. No technical terms. Written for brand voice, not search intent</div>
+          <div class="cell cell-to"><span class="dot dot-med"></span>Updated guidelines align with OEM intervals, restore technical language, allow <strong>transparent value framing</strong></div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Content structure for AI</div>
+          <div class="cell cell-from">Content builds to answers — passages can't be extracted and cited without full page context</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>All modules restructured <strong>answer-first</strong> — every passage self-contained and citable without surrounding context</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAT 4 -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">4</div>
+        <div class="cat-title">We're invisible when people ask AI assistants</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Brand entity authority</div>
+          <div class="cell cell-from">Take5 not defined as a structured entity — AI systems must infer brand identity; off-site footprint is thin</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Brand entity defined with <strong>sameAs links</strong> to Wikipedia, GBP, CARFAX &amp; review aggregators — consistent identity everywhere AI looks</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Off-site citation building</div>
+          <div class="cell cell-from">Competitors benefit from richer third-party footprints — Take5 is under-cited on AI-preferred sources</div>
+          <div class="cell cell-to"><span class="dot dot-med"></span>Structured <strong>off-site authority program</strong>: Wikipedia, RepairPal, Yelp, automotive editorial — closing the gap vs. Jiffy Lube &amp; Valvoline</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Conversational local queries</div>
+          <div class="cell cell-from">Site not optimized for "best oil change near me" or "is there a Take5 open right now" in AI responses</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Location pages and <strong>Today module</strong> answer conversational queries directly; real-time shop status in AI-readable feed</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Prompt coverage gaps</div>
+          <div class="cell cell-from">No visibility into which AI queries surface competitors instead of Take5, or why</div>
+          <div class="cell cell-to"><span class="dot dot-med"></span><strong>60–100 prompt audit</strong> across ChatGPT, Perplexity &amp; AI Overviews — findings feed directly into content priorities</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAT 5 -->
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">5</div>
+        <div class="cat-title">We can't measure what's working</div>
+        <div class="cat-badge badge-medium">Medium impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Analytics foundation</div>
+          <div class="cell cell-from">Inconsistent event tracking; GA and Zeta receive different, non-joinable data — no component-level attribution</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Component-based analytics with <strong>shared data layer</strong> — every click, module render, and CTA attributed to a stable entity ID</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Experimentation</div>
+          <div class="cell cell-from">No A/B testing capability connected to analytics — no way to prove changes drive conversion</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>In-house experimentation integrated with Vercel decisioning — <strong>every SEO and UX change is measurable</strong> and attributable</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">AI citation monitoring</div>
+          <div class="cell cell-from">Zero visibility into whether Take5 is cited by ChatGPT, Perplexity, Gemini, or Google AI Overviews</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>Share of Model baseline</strong> established pre-launch; monthly tracking of citation rate, position &amp; sentiment vs. competitors</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Reporting pipeline</div>
+          <div class="cell cell-from">Sampled GA4 data only — no raw export, no cohort analysis, no business case validation capability</div>
+          <div class="cell cell-to"><span class="dot dot-med"></span><strong>GA4 → BigQuery pipeline</strong> for unsampled event-level data — enables conversion attribution from AI referral traffic</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-wordmark">
+      <img src="../shared/elevate-brand-refresh-vert-light-transparent.png" width="160" height="160" alt="Elevate Digital">
+    </div>
+    <div class="footer-note">
+      Rankings depend on many signals; this work extends structural runway so SEO, content, and listings can compound.<br>
+      <span>Elevate Digital for Driven Brands · 2026</span>
+    </div>
+  </div>
+
+
+</div>
+</body>
+</html>

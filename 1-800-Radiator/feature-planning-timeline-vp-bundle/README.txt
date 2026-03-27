@@ -53,4 +53,4 @@ Source data is embedded in the HTML. The “Sheet data as of” line near the ti
 
 **Check live sheet** sometimes works in the browser; if it doesn’t, use the Google Sheets link — you don’t need to run anything on your computer.
 
-*(Technical staff: to regenerate the HTML from the sheet, run `python3 scripts/merge_feature_sheet.py` in the folder that contains this README and the `scripts` folder.)*
+*(Technical staff: from the repository root, run `python3 1-800-Radiator/scripts/merge_feature_sheet.py`. From this bundle folder only, you can run `python3 scripts/merge_feature_sheet.py` — it updates the main timeline HTML in the parent `1-800-Radiator/` folder.)*

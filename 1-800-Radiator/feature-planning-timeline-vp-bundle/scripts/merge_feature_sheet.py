@@ -57,8 +57,9 @@ def parse_last_updated_unix(raw: str) -> Optional[int]:
 
 
 def main() -> None:
-    root = Path(__file__).resolve().parents[1]
-    html_path = root / "feature-planning-timeline-infographic.html"
+    # scripts/ → vp-bundle/ → 1-800-Radiator/
+    brand_root = Path(__file__).resolve().parents[2]
+    html_path = brand_root / "feature-planning-timeline-infographic.html"
     raw = urllib.request.urlopen(SHEET_EXPORT, timeout=60).read().decode("utf-8")
     rows = list(csv.reader(raw.splitlines()))
     if not rows:
