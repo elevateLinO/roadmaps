@@ -23,30 +23,12 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-}
-
-.page {
-  width: 100%;
-  max-width: 1080px;
-  margin: 0 auto;
   position: relative;
-  background-color: #192036;
-  padding: 44px 28px 48px;
-  display: flex;
-  flex-direction: column;
   isolation: isolate;
 }
 
-/* Full viewport width inside centered .page */
-.page-header-bleed {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  padding-left: 28px;
-  padding-right: 28px;
-  box-sizing: border-box;
-}
-
-.page::before {
+/* Hero gradients full viewport (same pattern as value-areas CEO / Take 5) */
+body::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -60,7 +42,7 @@ body {
     linear-gradient(180deg, rgba(8, 22, 48, 0.55) 0%, rgba(25, 32, 54, 0) 100%);
 }
 
-.page::after {
+body::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -74,7 +56,26 @@ body {
   -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
 }
 
-.page > * { position: relative; z-index: 1; }
+.page {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  padding: 44px 28px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Full-bleed only the top header row so title/logo align with the wide hero */
+.page-header-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-left: 28px;
+  padding-right: 28px;
+  box-sizing: border-box;
+}
 
 .header {
   display: flex;
@@ -305,11 +306,11 @@ body {
     min-width: 0 !important;
     width: 100% !important;
   }
-  .page::before {
+  body::before {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  .page::after {
+  body::after {
     mix-blend-mode: normal !important;
     opacity: 0.14 !important;
     -webkit-mask-image: none !important;
@@ -345,7 +346,7 @@ body {
   </div>
 
 
-  <div class="matrix-scroll page-header-bleed">
+  <div class="matrix-scroll">
 <div class="col-headers">
     <div class="col-label">Area</div>
     <div class="col-label">Current / detail</div>
