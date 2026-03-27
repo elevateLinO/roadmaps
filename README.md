@@ -59,4 +59,4 @@ GitHub Pages will redeploy in a minute or two; hard-refresh the infographic URL 
 
 ## Other files
 
-The repo may also contain other infographics (e.g. `Take 5/`, `cycle-diagram.html` at root) and reference assets; they are not all wired to the merge script above.
+The repo may also contain other infographics (e.g. `Take 5/`) and reference assets; they are not all wired to the merge script above.
