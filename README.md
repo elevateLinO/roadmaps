@@ -11,15 +11,15 @@ Static HTML infographics and small tools for client roadmaps and planning. Sourc
 | `Maaco/` | Maaco (placeholder) |
 | `AGN/` | AGN (placeholder) |
 | `Meineke/` | Meineke (placeholder) |
-| `shared/` | Common assets (Elevate logos, `black-lines` texture) used by multiple pages |
+| `assets/` | Shared images, logos, source art, and reference files used across infographics |
 
-Other reference files (e.g. PDFs, `.docx`, mountain artwork) may remain at the **repository root**.
+Loose reference files (e.g. PDFs in client folders) may live under each brand; general artwork and documentation are in **`assets/`** when not tied to a single client deliverable.
 
 ## Feature planning timeline
 
 - **Source file:** `1-800-Radiator/feature-planning-timeline-infographic.html`
 - **Public site (after Pages is enabled):** `https://elevatelino.github.io/roadmaps/1-800-Radiator/feature-planning-timeline-infographic.html`
-- **Assets:** shared textures and logo live in `shared/`; paths in the HTML use `../shared/…`
+- **Assets:** common textures and logos live in `assets/`; paths in the HTML use `../assets/…`
 
 **Check live sheet** on the page only *compares* the live Google Sheet export to the data already embedded in the HTML. It does not update the site.
 
