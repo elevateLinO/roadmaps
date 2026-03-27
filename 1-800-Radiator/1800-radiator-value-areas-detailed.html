@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1-800-Radiator — Value areas (detailed)</title>
+<link href="https://fonts.googleapis.com/css2?family=Sansation:wght@400;700&family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-weight: 400;
+  background: #192036;
+  color: #ffffff;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 28px 48px;
+}
+
+.page {
+  width: 100%;
+  position: relative;
+  background-color: #192036;
+  padding: 44px 8px 48px;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 340px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 110% 85% at 50% -35%, rgba(0, 174, 239, 0.38), transparent 58%),
+    radial-gradient(ellipse 75% 55% at 92% 8%, rgba(0, 254, 124, 0.14), transparent 52%),
+    radial-gradient(ellipse 65% 50% at 8% 18%, rgba(120, 185, 255, 0.11), transparent 48%),
+    linear-gradient(180deg, rgba(8, 22, 48, 0.55) 0%, rgba(25, 32, 54, 0) 100%);
+}
+
+.page::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 320px;
+  z-index: 0;
+  pointer-events: none;
+  background: url('../assets/black-lines-1.png') center top / cover no-repeat;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+}
+
+.page > * { position: relative; z-index: 1; }
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(0,254,124,0.22);
+  gap: 20px;
+}
+.header-left { display: flex; flex-direction: column; gap: 10px; max-width: 720px; }
+
+.eyebrow {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: #00aeef;
+  text-transform: uppercase;
+}
+.headline {
+  font-family: 'Sansation', 'Titillium Web', sans-serif;
+  font-size: clamp(48pt, 4vw + 28pt, 64pt);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.headline em { color: #00fe7c; font-style: normal; font-family: inherit; font-weight: 700; }
+.subhead {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: clamp(16pt, 1.5vw, 18pt);
+  font-weight: 600;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.45;
+  margin-top: 8px;
+  max-width: 38em;
+}
+.logo-wrap {
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.logo-wrap img {
+  height: 132px;
+  width: auto;
+  display: block;
+  opacity: 1;
+  margin-top: 2px;
+}
+
+.col-headers {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) 1fr 1fr;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.col-label {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00fe7c;
+  padding: 0 12px;
+}
+.col-label:first-child { padding-left: 4px; }
+
+.categories { display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+.category {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(0,0,0,0.28);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.cat-num {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #00aeef;
+  color: #fff;
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 12pt;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cat-title {
+  font-family: 'Sansation', 'Titillium Web', sans-serif;
+  font-size: clamp(18pt, 1.4vw + 10pt, 26pt);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  flex: 1;
+  line-height: 1.2;
+  text-transform: none;
+}
+.cat-badge {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 20px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.badge-high { color: #00fe7c; border-color: rgba(0,254,124,0.5); background: rgba(0,254,124,0.07); }
+.badge-medium { color: #00aeef; border-color: rgba(0,174,239,0.5); background: rgba(0,174,239,0.07); }
+
+.rows { display: flex; flex-direction: column; }
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) 1fr 1fr;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.row:last-child { border-bottom: none; }
+
+.cell {
+  padding: 12px 12px 14px;
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.55;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.cell:last-child { border-right: none; }
+.cell:first-child { padding-left: 16px; }
+
+.cell-label {
+  color: rgba(255,255,255,0.62);
+  font-weight: 600;
+  font-size: 11pt;
+}
+.cell-from { color: rgba(255,255,255,0.65); }
+.cell-to { color: #e8e8e8; }
+.cell-to strong { color: #00fe7c; font-weight: 600; font-family: 'Titillium Web', 'Arial', sans-serif; }
+.cell-to em { color: #00aeef; font-style: normal; font-weight: 600; }
+
+.dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+  flex-shrink: 0;
+  position: relative;
+  top: -1px;
+}
+.dot-high { background: #00fe7c; }
+.dot-med { background: #00aeef; }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-wordmark img { height: 88px; width: auto; opacity: 0.88; display: block; }
+.footer-note {
+  font-family: 'Titillium Web', 'Arial', sans-serif;
+  font-size: 9pt;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.03em;
+  text-align: right;
+  line-height: 1.65;
+  max-width: min(520px, 100%);
+}
+.footer-note span { color: #00aeef; }
+
+@media (max-width: 900px) {
+  body { padding: 0 18px 40px; }
+  .page { padding: 32px 12px 40px; }
+  .header { flex-direction: column; }
+  .logo-wrap { margin-left: 0; }
+  .logo-wrap img { height: 120px; }
+  .cat-title { font-size: clamp(16pt, 3.5vw, 22pt); }
+  .page { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .matrix-scroll { min-width: 680px; }
+}
+
+@media (min-width: 901px) {
+  .matrix-scroll { min-width: 0; }
+}
+
+@media print {
+  html, body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: #192036 !important;
+  }
+  @page {
+    size: letter;
+    margin: 10mm 8mm 12mm;
+  }
+  body {
+    max-width: none !important;
+    padding: 0 8px 16px !important;
+  }
+  .page {
+    padding: 16px 4px 24px !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+  }
+  .matrix-scroll {
+    overflow: visible !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  .page::before {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .page::after {
+    mix-blend-mode: normal !important;
+    opacity: 0.14 !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .header { break-after: avoid; }
+  .cat-header { break-after: avoid; }
+  .row {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .footer {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .logo-wrap img { max-height: 1.1in !important; height: auto !important; width: auto !important; }
+  .footer-wordmark img { max-height: 0.75in !important; height: auto !important; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">1-800-Radiator · Feature planning · Driven Brands</div>
+      <div class="headline">From today’s experience to the platform we need:<br><em>Value area by value area</em></div>
+      <div class="subhead">Detailed view: current state, future state, key features, and impact rationale per value area. Source: Google Sheets (Value Areas tab).</div>
+    </div>
+    <div class="logo-wrap">
+      <img src="../assets/elevate-brand-refresh-vert-light-transparent.png" width="200" height="200" alt="Elevate Digital">
+    </div>
+  </div>
+
+
+  <div class="matrix-scroll">
+<div class="col-headers">
+    <div class="col-label">Area</div>
+    <div class="col-label">Current / detail</div>
+    <div class="col-label">Target / impact</div>
+  </div>
+
+  <div class="categories">
+
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">1</div>
+        <div class="cat-title">Conversion &amp; Acquisition</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Current state</div>
+          <div class="cell cell-from">Prospective accounts must create an account before seeing any product catalog. There is no pre-login SEO content, no anonymous browsing, and no organic search presence. A shop evaluating suppliers online will not find 1800R, and if they do, they bounce within seconds.</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Anonymous catalog browsing, a pre-login content hub demonstrating technical authority, a downtime cost calculator, and delivery ETA preview — all accessible before account creation. New accounts are onboarded with a guided flow and a direct rep introduction rather than dropped into a blank dashboard.</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Key features &amp; roadmap</div>
+          <div class="cell cell-from">Pre-login catalog browsing; Tech tips library; Tech corner / editorial hub; Downtime cost calculator; Delivery ETA preview; Guided new account onboarding; FSR scan-to-enroll tool; QR codes on FSR materials and product packaging</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>High</strong> — Directly addresses the 86% of the market that isn&#x27;t yet a customer. Even marginal improvement in pre-login conversion compounds across 1M+ annual site visits.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">2</div>
+        <div class="cat-title">Customer Experience</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Current state</div>
+          <div class="cell cell-from">Every logged-in account sees the same generic experience regardless of shop type, tenure, or purchase history. Mechanics face repeated login friction. Order status is invisible after placement. There is no delivery tracking, no ETA updates, and no automated alerts when something goes wrong.</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>A personalized dashboard surfacing the right content, promotions, and recommendations for each shop type. Persistent login on trusted devices. Real-time delivery tracking with automated text alerts for delays. VIN and license plate lookup replacing the rigid year/make/model flow. Smart disambiguation replacing self-interpreted part notes.</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Key features &amp; roadmap</div>
+          <div class="cell cell-from">Personalized post-login experience; Persistent session / remembered device login; Real-time delivery tracking page; Automated delivery delay notifications; VIN-based part lookup; License plate lookup; Smart disambiguation prompts; Part compatibility badge; Loyalty and tenure recognition</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>High</strong> — Retention is cheaper than acquisition. Personalization, delivery visibility, and frictionless lookup directly reduce churn and increase order frequency among 140K active accounts.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">3</div>
+        <div class="cat-title">Operational Efficiency</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Current state</div>
+          <div class="cell cell-from">Shops call in to find out order status, account balances, and part availability. FSRs visit shops with no digital tools and leave print materials with no measurable follow-through. Marketing requests from 200 franchise locations funnel through a two-person team. There is no proactive exception handling when deliveries go wrong.</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Self-serve delivery tracking, automated delay notifications, and a live order-by/receive-by window eliminate &quot;where is my order&quot; calls. A franchise self-serve marketing portal and digital asset management platform unblock the marketing team. An account health dashboard gives reps early warning on at-risk accounts before the next field visit.</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Key features &amp; roadmap</div>
+          <div class="cell cell-from">Order-by/receive-by visibility; Tracking number surfacing; Automated delivery delay notifications; Account health dashboard; Rep continuity record; Franchise self-serve marketing portal; Digital asset management platform; Session and user-level analytics</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>High</strong> — Eliminates avoidable call volume, unblocks the marketing team, and gives reps early warning on at-risk accounts — measurable cost reduction and revenue protection.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">4</div>
+        <div class="cat-title">Financial Visibility</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Current state</div>
+          <div class="cell cell-from">Statements are not published on the site. Shops cannot see what they owe, direct payments to specific invoices, or view their credit line. Payment allocation is performed manually by an AR staff member. Over 50% of customers are on COD, with net-7 customers requiring a driver to physically collect a check.</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>Statements, downloadable invoices, and credit line visibility available in the portal within 90 days. Self-serve payment allocation replacing manual AR processing. A digital payment workflow for COD accounts creating a path toward net terms adoption. Spend and margin reporting for franchise owners and internal teams.</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Key features &amp; roadmap</div>
+          <div class="cell cell-from">Statement visibility; Self-service payment allocation to invoices; Downloadable invoices; Digital payment workflow for COD customers; Credit line visibility and management; Spend and margin reporting tools</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>Medium-High</strong> — High value for the accounts it affects, but scoped to billing relationships rather than the full customer base. COD conversion has significant upside if it moves even 10% of accounts to terms.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">5</div>
+        <div class="cat-title">Search &amp; Discovery Authority</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Current state</div>
+          <div class="cell cell-from">The site has almost no indexable content — it is effectively login-gated. 1800R does not appear in organic search results for cooling system queries. AI systems cite competitors as the authority. The company&#x27;s 35 years of diagnostic knowledge lives only in the heads of phone concierge staff and generates zero digital reach.</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>A structured public content program — tech tips, failure pattern insights, installation guides, editorial hub — optimized for both traditional search and AI citation. A knowledge base capturing concierge expertise for the first time. Domain consolidation eliminating SEO fragmentation. AI search authority content structured to earn citation rather than just rankings.</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Key features &amp; roadmap</div>
+          <div class="cell cell-from">Tech tips library; Tech corner / editorial hub; News and SEO content program; AI search authority content strategy; Failure pattern insights; Installation guides; Knowledge base and concierge capture system; Domain consolidation v1 and v2; Pre-login catalog browsing</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>High</strong> — Structural — compounds over time. 1800R has zero organic presence today, so the ceiling is very high. AI citation is an emerging channel where first-mover advantage is real.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">6</div>
+        <div class="cat-title">Marketing Enablement</div>
+        <div class="cat-badge badge-medium">Medium impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Current state</div>
+          <div class="cell cell-from">All marketing is delivered through physical materials with no digital equivalent, no QR codes, no measurable engagement, and no follow-through after the FSR visit. With 1 million FSR visits per year and 3 million product units shipped annually, the digital marketing opportunity is enormous and entirely untapped.</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span>A targeted digital promotions engine delivering personalized offers to logged-in accounts based on behavior and purchase history. QR codes on FSR materials and product packaging creating measurable digital touchpoints from every physical interaction. A franchise self-serve portal giving 80 franchise owners brand-safe marketing independence without routing everything through corporate.</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Key features &amp; roadmap</div>
+          <div class="cell cell-from">Targeted digital promotions engine; FSR scan-to-enroll tool; QR codes on FSR marketing materials; QR codes on product packaging; Digital asset management platform; Franchise self-serve marketing portal</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>High</strong> — 1M FSR visits and 3M product units annually are untapped digital touchpoints. Even a 1% conversion of FSR visits to enrolled accounts at existing customer LTV is enormous.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="cat-header">
+        <div class="cat-num">7</div>
+        <div class="cat-title">Technical Foundation</div>
+        <div class="cat-badge badge-high">High impact</div>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="cell cell-label">Current state</div>
+          <div class="cell cell-from">The site is a single-page application sitting directly on .NET stored procedures — not a true API. Analytics track stored procedure calls, not user behavior. Accounting functions live in a legacy GeneXus codebase that is extremely difficult to integrate with. There is no modern deployment infrastructure, no API layer, and no shared platform connection to the broader Driven Brands ecosystem.</div>
+          <div class="cell cell-to"><span class="dot dot-med"></span>DEWE platform migration establishes the Next.js/Vercel foundation shared across Driven Brands properties. DUWA integration connects 1800R&#x27;s shop, inventory, and coupon data to the enterprise middleware layer — enabling personalization, the Zeta CDP connection, and ephemeral marketing overrides. A stored procedure API adaptation layer makes existing backend logic consumable by the new platform without a full rewrite.</div>
+        </div>
+        <div class="row">
+          <div class="cell cell-label">Key features &amp; roadmap</div>
+          <div class="cell cell-from">Migration to DEWE; DUWA integration for 1800R; Adapt DEWE/DUWA for stored procedure API; GeneXus to modern accounting platform migration (client-owned)</div>
+          <div class="cell cell-to"><span class="dot dot-high"></span><strong>Medium</strong> — Enabling rather than directly value-generating. High priority, moderate direct impact — its value is unlocking everything else on the roadmap rather than delivering customer-facing outcomes itself.</div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-wordmark">
+      <img src="../assets/elevate-brand-refresh-vert-light-transparent.png" width="160" height="160" alt="Elevate Digital">
+    </div>
+    <div class="footer-note">
+      Content reflects the planning sheet export; validate against the live Google Sheet for edits.<br>
+      <span>Elevate Digital · 1-800-Radiator · Driven Brands · 2026</span>
+    </div>
+  </div>
+
+
+</div>
+</body>
+</html>

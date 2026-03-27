@@ -6,7 +6,7 @@ Static HTML infographics and small tools for client roadmaps and planning. Sourc
 
 | Folder | Client |
 |--------|--------|
-| `1-800-Radiator/` | 1-800-Radiator (feature timeline, roadmap, merge script, VP bundle) |
+| `1-800-Radiator/` | 1-800-Radiator (feature timeline, value-area CEO/detailed infographics, roadmap, merge script, VP bundle) |
 | `Take 5/` | Take 5 |
 | `Maaco/` | Maaco (placeholder) |
 | `AGN/` | AGN (placeholder) |
@@ -52,6 +52,15 @@ When the sheet changes and you need the site (and “Sheet data as of”) to mat
 GitHub Pages will redeploy in a minute or two; hard-refresh the infographic URL if needed.
 
 **Requirements:** Python 3 (stdlib only; no pip install). Network access to Google’s public CSV export URL.
+
+### Value areas infographics (1-800-Radiator)
+
+Static pages styled like the Take 5 SEO/GEO pair, filled from the **Value Areas** tab of the same planning sheet (`gid=360925940`):
+
+- **`1800-radiator-value-areas-ceo.html`** — executive columns (Today → target state) per value area.
+- **`1800-radiator-value-areas-detailed.html`** — detail columns plus key features and impact rationale.
+
+They are **snapshots** in HTML; if the sheet changes, update the files (or regenerate from a CSV export of that tab).
 
 ## VP bundle folder
 
