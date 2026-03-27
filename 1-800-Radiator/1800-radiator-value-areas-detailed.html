@@ -12,6 +12,7 @@ html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -19,19 +20,30 @@ body {
   font-weight: 400;
   background: #192036;
   color: #ffffff;
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 28px 48px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .page {
   width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
   position: relative;
   background-color: #192036;
-  padding: 44px 8px 48px;
+  padding: 44px 28px 48px;
   display: flex;
   flex-direction: column;
   isolation: isolate;
+}
+
+/* Full viewport width inside centered .page */
+.page-header-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-left: 28px;
+  padding-right: 28px;
+  box-sizing: border-box;
 }
 
 .page::before {
@@ -251,8 +263,12 @@ body {
 .footer-note span { color: #00aeef; }
 
 @media (max-width: 900px) {
-  body { padding: 0 18px 40px; }
+  body { padding-bottom: 40px; }
   .page { padding: 32px 12px 40px; }
+  .page-header-bleed {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
   .header { flex-direction: column; }
   .logo-wrap { margin-left: 0; }
   .logo-wrap img { height: 120px; }
@@ -317,7 +333,7 @@ body {
 <body>
 <div class="page">
 
-  <div class="header">
+  <div class="header page-header-bleed">
     <div class="header-left">
       <div class="eyebrow">1-800-Radiator · Feature planning · Driven Brands</div>
       <div class="headline">From today’s experience to the platform we need:<br><em>Value area by value area</em></div>
@@ -329,7 +345,7 @@ body {
   </div>
 
 
-  <div class="matrix-scroll">
+  <div class="matrix-scroll page-header-bleed">
 <div class="col-headers">
     <div class="col-label">Area</div>
     <div class="col-label">Current / detail</div>
